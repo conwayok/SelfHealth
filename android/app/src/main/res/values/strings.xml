@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">SelfHealth</string>
+
+    <string name="title">SELFHEALTH</string>
+
+    <string name="today_step_string">今日步數</string>
+    <string name="yesterday_sleep_string">昨日睡眠</string>
+    <string name="today_drink_string">今天飲水</string>
+    <string name="today_use_phone_string">今日滑手機</string>
+
+    <string name="hour_string">小時</string>
+    <string name="cc_string">毫升</string>
+    <string name="zero_string">0</string>
+    <string name="step_string">步</string>
+
+
 </resources>
