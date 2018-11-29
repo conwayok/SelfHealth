@@ -25,18 +25,6 @@ public class HealthDataCalculator {
   private LocalDate endDate;
   private long days;
 
-  private long totalSteps;
-  private long stepsAverage;
-
-  private double totalHoursOfSleep;
-  private double sleepHoursAverage;
-
-  private long totalWater;
-  private double waterAverage;
-
-  private double totalHoursPhoneUse;
-  private double phoneUseHoursAverage;
-
   private HealthDataDao healthDataDao;
 
   public HealthDataCalculator(Context context, LocalDate startDate, LocalDate endDate) {
@@ -65,7 +53,35 @@ public class HealthDataCalculator {
     return total / days;
   }
 
-  public getSleepHoursDay(LocalDate date){
-    
+  public double getSleepHoursDay(LocalDate date) {
+    return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursOfSleep();
+  }
+
+  public double getSleepAverage() {
+    int total = 0;
+    for (DailyDataModel dailyDataModel : dailyDataModelList)
+      total += dailyDataModel.getHoursOfSleep();
+    return total / days;
+  }
+
+  public int getWaterDay(LocalDate date) {
+    return Objects.requireNonNull(dailyDataModelMap.get(date)).getWaterCC();
+  }
+
+  public double getWaterAverage() {
+    int total = 0;
+    for (DailyDataModel dailyDataModel : dailyDataModelList) total += dailyDataModel.getWaterCC();
+    return total / days;
+  }
+
+  public double getPhoneUseDay(LocalDate date) {
+    return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursPhoneUse();
+  }
+
+  public double getPhoneUseAverage() {
+    double total = 0;
+    for (DailyDataModel dailyDataModel : dailyDataModelList)
+      total += dailyDataModel.getHoursPhoneUse();
+    return total / days;
   }
 }
