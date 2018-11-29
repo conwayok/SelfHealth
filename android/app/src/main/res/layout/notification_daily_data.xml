@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:text="@string/title" />
+
+    <TextView
+        android:id="@+id/notification_step_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:text="@string/today_step_string" />
+
+    <TextView
+        android:id="@+id/notification_drink_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:text="@string/today_drink_string" />
+
+    <TextView
+        android:id="@+id/notification_use_phone_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:text="@string/today_use_phone_string" />
+
+    <TextView
+        android:id="@+id/notification_sleep_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:text="@string/yesterday_sleep_string" />
+</LinearLayout>
