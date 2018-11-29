@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton.setOnClickListener(this);
         drinkButton.setOnClickListener(this);
         usePhoneButton.setOnClickListener(this);
+
+        stepButton.setText("1234" + getString(R.string.step_string));
+        sleepButton.setText("2.4" + getString(R.string.hour_string));
+        drinkButton.setText("3000" + getString(R.string.cc_string));
+        usePhoneButton.setText("2.3" + getString(R.string.hour_string));
+
     }
 
     @Override
@@ -57,7 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, DetailDataActivity.class));
                 break;
             case R.id.share_button:
-                startActivity(new Intent(this, DetailDataActivity.class));
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "subject");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "body");
+                startActivity(Intent.createChooser(sharingIntent, "title"));
                 break;
 
             case R.id.export_import_button:
