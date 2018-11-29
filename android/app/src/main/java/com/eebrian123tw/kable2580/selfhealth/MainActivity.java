@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.export_import_button:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, ExportImportActivity.class));
                 break;
         }
     }

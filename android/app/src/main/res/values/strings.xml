@@ -16,5 +16,11 @@
     <string name="step_string">步</string>
     <string name="share_string">分享</string>
 
+    <string name="version_string">v1.0</string>
+
+    <string name="export_string">匯出</string>
+    <string name="import_string">匯入</string>
+    <string name="file_name_string">檔案名稱</string>
+
 
 </resources>
