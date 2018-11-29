@@ -20,6 +20,9 @@
 
     <string name="export_string">匯出</string>
     <string name="import_string">匯入</string>
+    <string name="import_export_string">匯入/匯出</string>
+
+
     <string name="file_name_string">檔案名稱</string>
 
 

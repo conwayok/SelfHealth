@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SelfHealth</string>
+    <string name="title">SELFHEALTH</string>
+    <string name="my_today_status">我今日状态</string>
+    <string name="today_step_string">今日步数</string>
+    <string name="yesterday_sleep_string">昨日睡眠</string>
+    <string name="today_use_phone_string">今日滑手机</string>
+    <string name="hour_string">小时</string>
+    <string name="cc_string">毫升</string>
+    <string name="today_drink_string">今天饮水</string>
+    <string name="zero_string">0</string>
+    <string name="step_string">步</string>
+    <string name="share_string">分享</string>
+    <string name="version_string">v1.0</string>
+    <string name="export_string">汇出</string>
+    <string name="import_string">汇入</string>
+    <string name="file_name_string">档案名称</string>
+    <string name="import_export_string">汇入/汇出</string>
+</resources>
