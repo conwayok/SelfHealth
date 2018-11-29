@@ -3,7 +3,7 @@ package com.eebrian123tw.kable2580.selfhealth.dao;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.eebrian123tw.kable2580.selfhealth.entity.DailyDataModel;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,13 +15,11 @@ import java.util.List;
 
 public class HealthDataDao {
   private ObjectMapper objectMapper;
-  private Context context;
   private static final String DAILY_DATA = "DailyData";
   private SharedPreferences sharedPref;
 
   public HealthDataDao(Context context) {
     objectMapper = new ObjectMapper();
-    this.context = context;
     sharedPref = context.getSharedPreferences(DAILY_DATA, Context.MODE_PRIVATE);
   }
 

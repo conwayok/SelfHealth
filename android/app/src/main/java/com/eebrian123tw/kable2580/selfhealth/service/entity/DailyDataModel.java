@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth.entity;
+package com.eebrian123tw.kable2580.selfhealth.service.entity;
 
 import org.threeten.bp.LocalDate;
 
