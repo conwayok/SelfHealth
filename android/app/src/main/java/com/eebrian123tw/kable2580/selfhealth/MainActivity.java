@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.eebrian123tw.kable2580.selfhealth.service.HealthDataCalculator;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.LocalDate;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button sleepButton;
     private Button drinkButton;
     private Button usePhoneButton;
+    private DailyDataModel dailyDataModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drinkButton.setOnClickListener(this);
         usePhoneButton.setOnClickListener(this);
 
-        stepButton.setText("1234" + getString(R.string.step_string));
-        sleepButton.setText("2.4" + getString(R.string.hour_string));
-        drinkButton.setText("3000" + getString(R.string.cc_string));
-        usePhoneButton.setText("2.3" + getString(R.string.hour_string));
+
+        dailyDataModel = new DailyDataModel();
+        dailyDataModel.setDataDate(LocalDate.now());
+        dailyDataModel.setUserId("1234567");
+        dailyDataModel.setSteps(1234);
+        dailyDataModel.setHoursOfSleep(2.6);
+        dailyDataModel.setHoursPhoneUse(3.5);
+        dailyDataModel.setWaterCC(3000);
+
+        stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
+        sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
+        drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
+        usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
+
 
     }
 
@@ -65,14 +80,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.share_button:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "subject");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "body");
-                startActivity(Intent.createChooser(sharingIntent, "title"));
+                String shareSubject = getString(R.string.app_name);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
+                String shareBody = parseDailyDataToString();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_string)));
                 break;
 
             case R.id.export_import_button:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
         }
+    }
+
+    private String parseDailyDataToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(getString(R.string.my_today_status));
+        stringBuilder.append('\n');
+
+        stringBuilder.append(getString(R.string.today_step_string));
+        stringBuilder.append(": ");
+        stringBuilder.append(dailyDataModel.getSteps()).append(getString(R.string.step_string));
+        stringBuilder.append('\n');
+
+        stringBuilder.append(getString(R.string.yesterday_sleep_string));
+        stringBuilder.append(": ");
+        stringBuilder.append(dailyDataModel.getHoursOfSleep()).append(getString(R.string.hour_string));
+        stringBuilder.append('\n');
+
+
+        stringBuilder.append(getString(R.string.today_drink_string));
+        stringBuilder.append(": ");
+        stringBuilder.append(dailyDataModel.getWaterCC()).append(getString(R.string.cc_string));
+        stringBuilder.append('\n');
+
+
+        stringBuilder.append(getString(R.string.today_use_phone_string));
+        stringBuilder.append(": ");
+        stringBuilder.append(dailyDataModel.getHoursPhoneUse()).append(getString(R.string.hour_string));
+
+        return stringBuilder.toString();
     }
 }
