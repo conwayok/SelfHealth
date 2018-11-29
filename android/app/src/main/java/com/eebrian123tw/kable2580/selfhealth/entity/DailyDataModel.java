@@ -1,6 +1,6 @@
 package com.eebrian123tw.kable2580.selfhealth.entity;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDate;
 
 import lombok.Data;
 
