@@ -1,10 +1,11 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button usePhoneButton;
     private DailyDataModel dailyDataModel;
 
-
-    private NotificationCompat.Builder notificationBuilder;
-    private NotificationManager notificationManager;
-    private int notificationId;
-    private RemoteViews remoteViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,65 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dailyDataModel.setHoursPhoneUse(3.5);
         dailyDataModel.setWaterCC(3000);
 
+
         stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
         sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
         drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
         usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
-        //notification
-//        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        remoteViews = new RemoteViews(getPackageName(), R.layout.notification_daily_data);
-//        remoteViews.setTextViewText(R.id.notification_step_textview, dailyDataModel.getSteps() + getString(R.string.step_string));
-//        remoteViews.setTextViewText(R.id.notification_sleep_textview, dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
-//        remoteViews.setTextViewText(R.id.notification_drink_textview, dailyDataModel.getWaterCC() + getString(R.string.cc_string));
-//        remoteViews.setTextViewText(R.id.notification_use_phone_textview, dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
-//
-//        notificationId = (int) System.currentTimeMillis();
-//        Intent notificationIntent = new Intent(this, MainActivity.class);
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//
-//        stackBuilder.addParentStack(MainActivity.class);
-//// Adds the Intent that starts the Activity to the top of the stack
-//        stackBuilder.addNextIntent(notificationIntent);
-//        PendingIntent resultPendingIntent =
-//                stackBuilder.getPendingIntent(
-//                        0,
-//                        PendingIntent.FLAG_UPDATE_CURRENT
-//                );
-//        notificationBuilder = new NotificationCompat.Builder(this);
-//        notificationBuilder.setAutoCancel(true).setContentTitle("My notification")
-//                .setContentText("Hello World!").setCustomBigContentView(remoteViews).setSmallIcon(R.mipmap.ic_launcher).setOngoing(true);
-//        notificationManager.notify(notificationId, notificationBuilder.build());
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, MainActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(1001, mBuilder.build());
-        //
-
-
+        notificationDailyData(dailyDataModel);
     }
 
     @Override
@@ -186,5 +130,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stringBuilder.append(dailyDataModel.getHoursPhoneUse()).append(getString(R.string.hour_string));
 
         return stringBuilder.toString();
+    }
+
+    private void notificationDailyData(DailyDataModel dailyDataModel) {
+
+        //notification
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notification_daily_data);
+        remoteViews.setTextViewText(R.id.notification_step_textview, getString(R.string.today_step_string) + ": " + dailyDataModel.getSteps() + getString(R.string.step_string));
+        remoteViews.setTextViewText(R.id.notification_sleep_textview, getString(R.string.yesterday_sleep_string) + ": " + dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
+        remoteViews.setTextViewText(R.id.notification_drink_textview, getString(R.string.today_drink_string) + ": " + dailyDataModel.getWaterCC() + getString(R.string.cc_string));
+        remoteViews.setTextViewText(R.id.notification_use_phone_textview, getString(R.string.today_use_phone_string) + ": " + dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
+
+        int notificationId = 11011;
+        String channelId = "daily_data_channel_id";
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(notificationIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,channelId);
+        notificationBuilder.setAutoCancel(true)
+                .setCustomContentView(remoteViews)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(resultPendingIntent)
+                .setOngoing(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int important = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, "daily_data_channel_name", important);
+            notificationBuilder.setChannelId(channelId);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        notificationManager.notify(notificationId, notificationBuilder.build());
+
+
     }
 }
