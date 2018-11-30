@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +28,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button sleepButton;
     private Button drinkButton;
     private Button usePhoneButton;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+
     private DailyDataModel dailyDataModel;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -44,6 +49,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton = findViewById(R.id.sleep_button);
         drinkButton = findViewById(R.id.drink_button);
         usePhoneButton = findViewById(R.id.use_phone_button);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                dailyDataModel.setSteps(12345);
+                dailyDataModel.setHoursPhoneUse(2.8);
+                dailyDataModel.setHoursOfSleep(8.5);
+                dailyDataModel.setWaterCC(4000);
+                stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
+                sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
+                drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
+                usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
         shareButton.setOnClickListener(this);
         exportImportButton.setOnClickListener(this);
@@ -155,11 +177,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         0,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,channelId);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId);
         notificationBuilder.setAutoCancel(true)
                 .setCustomContentView(remoteViews)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(resultPendingIntent)
+                .setCustomBigContentView(remoteViews)
                 .setOngoing(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int important = NotificationManager.IMPORTANCE_HIGH;
