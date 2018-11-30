@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 
   private Button shareButton;
   private Button exportImportButton;
+  private Button settingsButton;
 
   private Button stepButton;
   private Button sleepButton;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     drinkButton = findViewById(R.id.drink_button);
     usePhoneButton = findViewById(R.id.use_phone_button);
     swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+    settingsButton = findViewById(R.id.settings_button);
 
     shareButton.setOnClickListener(this);
     exportImportButton.setOnClickListener(this);
