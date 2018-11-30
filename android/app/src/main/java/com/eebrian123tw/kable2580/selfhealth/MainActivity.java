@@ -7,6 +7,7 @@ import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private Button shareButton;
     private Button exportImportButton;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-
+    private Handler handler;
     private DailyDataModel dailyDataModel;
 
 
@@ -50,21 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drinkButton = findViewById(R.id.drink_button);
         usePhoneButton = findViewById(R.id.use_phone_button);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                dailyDataModel.setSteps(12345);
-                dailyDataModel.setHoursPhoneUse(2.8);
-                dailyDataModel.setHoursOfSleep(8.5);
-                dailyDataModel.setWaterCC(4000);
-                stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
-                sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
-                drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
-                usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
 
 
         shareButton.setOnClickListener(this);
@@ -73,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sleepButton.setOnClickListener(this);
         drinkButton.setOnClickListener(this);
         usePhoneButton.setOnClickListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
 
         dailyDataModel = new DailyDataModel();
@@ -84,12 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dailyDataModel.setWaterCC(3000);
 
 
-        stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
-        sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
-        drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
-        usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
-
+        showDailyData();
         notificationDailyData(dailyDataModel);
+
+        handler = new Handler();
     }
 
     @Override
@@ -121,6 +106,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, ExportImportActivity.class));
                 break;
         }
+    }
+
+    private void showDailyData() {
+        stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
+        sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
+        drinkButton.setText(dailyDataModel.getWaterCC() + getString(R.string.cc_string));
+        usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(R.string.hour_string));
     }
 
 
@@ -194,5 +186,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notificationManager.notify(notificationId, notificationBuilder.build());
 
 
+    }
+
+    @Override
+    public void onRefresh() {
+        //simulate data update
+        dailyDataModel.setSteps(12345);
+        dailyDataModel.setHoursPhoneUse(2.8);
+        dailyDataModel.setHoursOfSleep(8.5);
+        dailyDataModel.setWaterCC(4000);
+
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showDailyData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 }
