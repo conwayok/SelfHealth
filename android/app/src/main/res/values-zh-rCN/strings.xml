@@ -17,4 +17,5 @@
     <string name="import_string">汇入</string>
     <string name="file_name_string">档案名称</string>
     <string name="import_export_string">汇入/汇出</string>
+    <string name="settings">设定</string>
 </resources>

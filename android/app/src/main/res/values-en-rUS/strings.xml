@@ -17,4 +17,5 @@
     <string name="import_string">Import</string>
     <string name="file_name_string">File Name</string>
     <string name="import_export_string">Expt./Impt.</string>
+    <string name="settings">Settings</string>
 </resources>
