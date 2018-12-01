@@ -18,7 +18,14 @@
         </activity>
         <activity android:name=".DetailDataActivity" />
         <activity android:name=".ExportImportActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+
+        <service
+            android:name=".DailyDataNotificationJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+
+
     </application>
 
 </manifest>

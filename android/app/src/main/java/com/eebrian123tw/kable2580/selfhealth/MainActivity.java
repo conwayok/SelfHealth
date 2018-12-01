@@ -4,6 +4,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,7 +75,15 @@ public class MainActivity extends AppCompatActivity
         dailyDataModel.setWaterCC(3000);
 
         showDailyData();
-        notificationDailyData(dailyDataModel);
+//        notificationDailyData(dailyDataModel);
+
+        ComponentName componentName = new ComponentName(this, DailyDataNotificationJobService.class.getName());
+        JobInfo jobInfo = new JobInfo.Builder(1234547, componentName)
+
+                .setPeriodic(15*60*1000)
+                .build();
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int returnCode = jobScheduler.schedule(jobInfo);
 
         handler = new Handler();
     }
@@ -202,10 +213,14 @@ public class MainActivity extends AppCompatActivity
             NotificationChannel notificationChannel =
                     new NotificationChannel(channelId, "daily_data_channel_name", important);
             notificationBuilder.setChannelId(channelId);
-            notificationManager.createNotificationChannel(notificationChannel);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
         }
 
-        notificationManager.notify(notificationId, notificationBuilder.build());
+        if (notificationManager != null) {
+            notificationManager.notify(notificationId, notificationBuilder.build());
+        }
     }
 
     @Override
