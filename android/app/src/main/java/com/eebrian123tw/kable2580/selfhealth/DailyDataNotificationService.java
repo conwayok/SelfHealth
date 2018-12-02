@@ -137,6 +137,7 @@ public class DailyDataNotificationService extends Service {
                 new NotificationCompat.Builder(this, channelId);
         notificationBuilder
                 .setAutoCancel(false)
+                .setOnlyAlertOnce(true)
                 .setCustomContentView(remoteViews)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentIntent(resultPendingIntent)

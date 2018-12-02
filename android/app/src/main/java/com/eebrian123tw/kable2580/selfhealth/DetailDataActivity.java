@@ -1,11 +1,17 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +30,8 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
     detailDataRecyclerView = findViewById(R.id.datail_data_recyclerview);
     detailDataRecyclerView.setLayoutManager(
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+    addButton.setOnClickListener(this);
 
     List<DetailDataUnit> detailData = new ArrayList<>();
     detailData.add(new DetailDataUnit("步數", 1564, "週三"));
@@ -106,7 +114,18 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
   public void onClick(View v) {
     switch (v.getId()){
       case R.id.add_button:
-
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final EditText edittext = new EditText(this);
+        edittext.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        alert.setMessage("Enter Your Message");
+        alert.setTitle("Enter Your Title");
+        alert.setView(edittext);
+        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int whichButton) {
+            Toast.makeText(DetailDataActivity.this,edittext.getText().toString(),Toast.LENGTH_SHORT).show();
+          }
+        });
+        alert.show();
         break;
     }
   }

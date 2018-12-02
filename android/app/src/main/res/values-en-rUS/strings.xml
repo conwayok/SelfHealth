@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SelfHealth</string>
-    <string name="title">SELFHEALTH</string>
     <string name="my_today_status">我今日状态</string>
     <string name="today_step_string">今日步数</string>
     <string name="yesterday_sleep_string">昨日睡眠</string>
@@ -10,7 +8,7 @@
     <string name="cc_string">c.c.</string>
     <string name="today_drink_string">今天饮水</string>
     <string name="zero_string">0</string>
-    <string name="step_string"></string>
+    <string name="step_string">st</string>
     <string name="share_string">Share</string>
     <string name="version_string">v1.0</string>
     <string name="export_string">Export</string>
