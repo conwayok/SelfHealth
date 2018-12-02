@@ -1,12 +1,11 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -75,15 +75,28 @@ public class MainActivity extends AppCompatActivity
         dailyDataModel.setWaterCC(3000);
 
         showDailyData();
+
+        if (!isThisServiceRunning(DailyDataNotificationService.class)) {
+            Toast.makeText(this, "start service", Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startService(new Intent(this, DailyDataNotificationService.class));
+//                startForegroundService(new Intent(this, DailyDataNotificationService.class));
+            } else {
+                startService(new Intent(this, DailyDataNotificationService.class));
+            }
+
+        }
+
+
 //        notificationDailyData(dailyDataModel);
 
-        ComponentName componentName = new ComponentName(this, DailyDataNotificationJobService.class.getName());
-        JobInfo jobInfo = new JobInfo.Builder(1234547, componentName)
-
-                .setPeriodic(15*60*1000)
-                .build();
-        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        int returnCode = jobScheduler.schedule(jobInfo);
+//        ComponentName componentName = new ComponentName(this, DailyDataNotificationJobService.class.getName());
+//        JobInfo jobInfo = new JobInfo.Builder(1234547, componentName)
+//
+//                .setPeriodic(15*60*1000)
+//                .build();
+//        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+//        int returnCode = jobScheduler.schedule(jobInfo);
 
         handler = new Handler();
     }
@@ -123,6 +136,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
     private void showDailyData() {
         stepButton.setText(dailyDataModel.getSteps() + getString(R.string.step_string));
         sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(R.string.hour_string));
@@ -157,6 +176,8 @@ public class MainActivity extends AppCompatActivity
 
         return stringBuilder.toString();
     }
+
+
 
     private void notificationDailyData(DailyDataModel dailyDataModel) {
 
@@ -240,5 +261,15 @@ public class MainActivity extends AppCompatActivity
                     }
                 },
                 1000);
+    }
+
+    private boolean isThisServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

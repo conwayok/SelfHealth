@@ -23,9 +23,8 @@
         <service
             android:name=".DailyDataNotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-
-
+        <service
+            android:name=".DailyDataNotificationService" />
     </application>
 
 </manifest>
