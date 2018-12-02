@@ -129,9 +129,9 @@ public class DailyDataNotificationService extends Service {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId);
         notificationBuilder
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .setCustomContentView(remoteViews)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentIntent(resultPendingIntent)
                 .setCustomBigContentView(remoteViews)
                 .setOngoing(true);
@@ -147,8 +147,8 @@ public class DailyDataNotificationService extends Service {
 
         if (notificationManager != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                startForeground(notificationId, notificationBuilder.build());
-                notificationManager.notify(notificationId, notificationBuilder.build());
+                startForeground(notificationId, notificationBuilder.build());
+//                notificationManager.notify(notificationId, notificationBuilder.build());
             } else {
                 notificationManager.notify(notificationId, notificationBuilder.build());
             }
@@ -159,7 +159,7 @@ public class DailyDataNotificationService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            stopForeground(true);
+            stopForeground(true);
         }
     }
 }

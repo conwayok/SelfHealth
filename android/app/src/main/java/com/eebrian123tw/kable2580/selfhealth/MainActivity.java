@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity
         if (!isThisServiceRunning(DailyDataNotificationService.class)) {
             Toast.makeText(this, "start service", Toast.LENGTH_SHORT).show();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startService(new Intent(this, DailyDataNotificationService.class));
-//                startForegroundService(new Intent(this, DailyDataNotificationService.class));
+//                startService(new Intent(this, DailyDataNotificationService.class));
+                startForegroundService(new Intent(this, DailyDataNotificationService.class));
             } else {
                 startService(new Intent(this, DailyDataNotificationService.class));
             }
