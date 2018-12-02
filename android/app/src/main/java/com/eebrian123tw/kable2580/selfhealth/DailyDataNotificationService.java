@@ -1,7 +1,6 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -26,8 +24,6 @@ import java.util.TimerTask;
 public class DailyDataNotificationService extends Service {
     private static final String TAG = "DailyDataNotService";
 
-    public DailyDataNotificationService() {
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -55,24 +51,35 @@ public class DailyDataNotificationService extends Service {
                 notificationDailyData(dailyDataModel);
             }
         };
-        timer.schedule(timerTask,0,1000);
+        timer.schedule(timerTask, 0, 1000);
 
         return START_NOT_STICKY;
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            stopForeground(true);
+        }
+    }
+
+    @Override
     public void onTaskRemoved(Intent rootIntent) {
         System.out.println("service in onTaskRemoved");
-        Intent restartService = new Intent(getApplicationContext(),
-                DailyDataNotificationService.class);
-        PendingIntent restartServicePI = PendingIntent.getService(
-                getApplicationContext(), 0, restartService,
-                0);
-        AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        if (mgr != null) {
-            mgr.set(AlarmManager.RTC_WAKEUP, 3000, restartServicePI);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
+        } else {
+            Intent restartService = new Intent(getApplicationContext(),
+                    DailyDataNotificationService.class);
+            PendingIntent restartServicePI = PendingIntent.getService(
+                    getApplicationContext(), 0, restartService,
+                    0);
+            AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            if (mgr != null) {
+                mgr.set(AlarmManager.RTC_WAKEUP, 3000, restartServicePI);
+            }
+        }
         super.onTaskRemoved(rootIntent);
         Log.i(TAG, "onTaskRemoved");
 
@@ -155,11 +162,5 @@ public class DailyDataNotificationService extends Service {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            stopForeground(true);
-        }
-    }
+
 }

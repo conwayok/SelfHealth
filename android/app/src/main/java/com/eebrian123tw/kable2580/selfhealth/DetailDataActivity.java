@@ -4,19 +4,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailDataActivity extends AppCompatActivity {
+public class DetailDataActivity extends AppCompatActivity implements View.OnClickListener {
 
   private RecyclerView detailDataRecyclerView;
+  private Button addButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_data);
 
+    addButton=findViewById(R.id.add_button);
     detailDataRecyclerView = findViewById(R.id.datail_data_recyclerview);
     detailDataRecyclerView.setLayoutManager(
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -95,5 +99,15 @@ public class DetailDataActivity extends AppCompatActivity {
     detailData.add(new DetailDataUnit("步數", 15624, "週三"));
 
     detailDataRecyclerView.setAdapter(new DetailDataAdapter(this, detailData));
+  }
+
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()){
+      case R.id.add_button:
+
+        break;
+    }
   }
 }
