@@ -7,7 +7,7 @@
     tools:context=".SettingsActivity">
 
     <Switch
-        android:id="@+id/notifications_switch"
+        android:id="@+id/show_notifications_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -17,12 +17,52 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/show_steps_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
-        android:text="Switch"
+        android:text=" Show Steps "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notifications_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="35dp"
+        android:text="NOTIFICATION SETTINGS"
+        app:layout_constraintBottom_toTopOf="@+id/show_notifications_switch"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/show_sleep_data_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Show Sleep Data "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_steps_switch" />
+
+    <Switch
+        android:id="@+id/show_water_amount_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Show Water Amount "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_sleep_data_switch" />
+
+    <Switch
+        android:id="@+id/show_phone_usage_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Show Phone Usage "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_water_amount_switch" />
 </android.support.constraint.ConstraintLayout>
