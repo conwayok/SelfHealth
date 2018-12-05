@@ -13,9 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eebrian123tw.kable2580.selfhealth.config.Config.DAILY_DATA;
+
 public class HealthDataDao {
   private ObjectMapper objectMapper;
-  private static final String DAILY_DATA = "DailyData";
   private SharedPreferences sharedPref;
 
   public HealthDataDao(Context context) {

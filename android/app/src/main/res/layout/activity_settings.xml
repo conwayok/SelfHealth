@@ -16,16 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/show_steps_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text=" Show Steps "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -36,33 +26,39 @@
         app:layout_constraintBottom_toTopOf="@+id/show_notifications_switch"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Switch
-        android:id="@+id/show_sleep_data_switch"
+    <TextView
+        android:id="@+id/steps_goal_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
-        android:text="Show Sleep Data "
+        android:text="Daily steps goal: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_steps_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
 
-    <Switch
-        android:id="@+id/show_water_amount_switch"
+    <EditText
+        android:id="@+id/daily_steps_goal_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
-        android:text="Show Water Amount "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_sleep_data_switch" />
+        android:ems="10"
+        android:inputType="number"
+        android:singleLine="false"
+        android:text="1000"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/steps_goal_text"
+        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
 
-    <Switch
-        android:id="@+id/show_phone_usage_switch"
+    <Button
+        android:id="@+id/settings_apply_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text="Show Phone Usage "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_water_amount_switch" />
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="60dp"
+        android:text="apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
