@@ -16,6 +16,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.Random;
 import java.util.Timer;
@@ -23,6 +24,12 @@ import java.util.TimerTask;
 
 public class DailyDataNotificationService extends Service {
   private static final String TAG = "DailyDataNotService";
+
+  @Override
+  public void onCreate() {
+    // initialize time zone information
+    AndroidThreeTen.init(this);
+  }
 
   @Override
   public IBinder onBind(Intent intent) {

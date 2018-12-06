@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.eebrian123tw.kable2580.selfhealth.service.HealthDataCalculator;
+
+import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,13 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
     addButton.setOnClickListener(this);
+
+    LocalDate start = LocalDate.of(2018, 12, 5);
+    LocalDate end = LocalDate.of(2018, 12, 6);
+//
+//    List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(start, end);
+
+    HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
 
     List<DetailDataUnit> detailData = new ArrayList<>();
     detailData.add(new DetailDataUnit("步數", 1564, "週三"));
