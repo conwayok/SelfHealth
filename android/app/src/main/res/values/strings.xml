@@ -27,6 +27,11 @@
     <string name="settings">設定</string>
     <string name="add">新增</string>
 
+    <string name="step">步數</string>
+    <string name="sleep">睡眠</string>
+    <string name="drink">今天飲水</string>
+    <string name="phone_use">滑手機</string>
+
 
 
 </resources>

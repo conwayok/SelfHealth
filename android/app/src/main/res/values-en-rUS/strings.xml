@@ -8,7 +8,6 @@
     <string name="cc_string">c.c.</string>
     <string name="today_drink_string">今天饮水</string>
     <string name="zero_string">0</string>
-    <string name="step_string">st</string>
     <string name="share_string">Share</string>
     <string name="version_string">v1.0</string>
     <string name="export_string">Export</string>
@@ -17,4 +16,8 @@
     <string name="import_export_string">Expt./Impt.</string>
     <string name="settings">Settings</string>
     <string name="add">add</string>
+    <string name="step">steps</string>
+    <string name="sleep">sleep</string>
+    <string name="drink">drink</string>
+    <string name="phone_use">phone use</string>
 </resources>
