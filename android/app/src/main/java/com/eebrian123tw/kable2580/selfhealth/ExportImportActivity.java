@@ -19,7 +19,7 @@ import com.obsez.android.lib.filechooser.ChooserDialog;
 import java.io.File;
 import java.util.regex.Pattern;
 
-public class ExportImportActivity extends AppCompatActivity implements View.OnClickListener,ChooserDialog.Result {
+public class ExportImportActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button exportButton;
     private Button importButton;
@@ -46,12 +46,31 @@ public class ExportImportActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.export_button:
+                new ChooserDialog().with(this)
+                        .withFilter(true, false)
+                        .withStartFile(Environment.getExternalStorageDirectory().getPath() + "/")
+                        .withChosenListener(new ChooserDialog.Result() {
+                            @Override
+                            public void onChoosePath(String path, File pathFile) {
+                                Toast.makeText(ExportImportActivity.this, "FOLDER: " + path, Toast.LENGTH_SHORT).show();
+                                fileNameTextView.setText(getString(R.string.file_name_string) + path+"/selfHealth.json");
+                            }
+                        })
+                        .build()
+                        .show();
+
                 break;
             case R.id.import_button:
                 new ChooserDialog(this)
-//                        .withFilter(false, false, "json")
+                        .withFilter(false, false, "json")
                         .withStartFile(Environment.getExternalStorageDirectory().getPath() + "/")
-                        .withChosenListener(this)
+                        .withChosenListener(new ChooserDialog.Result() {
+                            @Override
+                            public void onChoosePath(String s, File file) {
+                                Toast.makeText(ExportImportActivity.this, "FILE: " + file, Toast.LENGTH_SHORT).show();
+                                fileNameTextView.setText(getString(R.string.file_name_string) + file);
+                            }
+                        })
                         .build()
                         .show();
                 break;
@@ -59,9 +78,5 @@ public class ExportImportActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    @Override
-    public void onChoosePath(String s, File file) {
-        Toast.makeText(ExportImportActivity.this, "FILE: " + file, Toast.LENGTH_SHORT).show();
-        fileNameTextView.setText("FILE: " + file);
-    }
+
 }
