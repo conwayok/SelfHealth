@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eebrian123tw.kable2580.selfhealth">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,8 +26,7 @@
         <service
             android:name=".DailyDataNotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".DailyDataNotificationService" />
+        <service android:name=".DailyDataNotificationService" />
     </application>
 
 </manifest>
