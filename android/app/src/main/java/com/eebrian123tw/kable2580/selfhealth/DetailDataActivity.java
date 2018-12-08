@@ -1,6 +1,7 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.eebrian123tw.kable2580.selfhealth.service.HealthDataCalculator;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDate;
 
@@ -36,12 +38,15 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
 
     addButton.setOnClickListener(this);
 
-    LocalDate start = LocalDate.of(2018, 12, 5);
-    LocalDate end = LocalDate.of(2018, 12, 6);
-//
-//    List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(start, end);
+    Intent intent=getIntent();
+    DetailDataUnit.Type type=(DetailDataUnit.Type) intent.getSerializableExtra("type");
+
+    LocalDate start = LocalDate.of(2018, 12, 3);
+    LocalDate end = LocalDate.of(2018, 12, 8);
+
 
     HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
+//    healthDataCalculator.get
 
     List<DetailDataUnit> detailData = new ArrayList<>();
     detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));

@@ -2,6 +2,8 @@ package com.eebrian123tw.kable2580.selfhealth;
 
 import org.threeten.bp.LocalDate;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
@@ -16,7 +18,7 @@ public class DetailDataUnit {
         this.dataTime = dataTime;
     }
 
-    public enum Type {
+    public enum Type implements Serializable {
         SLEEP, STEPS, PHONE_USE, DRINK
     }
 }
