@@ -22,7 +22,7 @@ public class DailyDataNotificationJobService extends JobService {
   public boolean onStartJob(JobParameters params) {
     Random random = new Random();
     DailyDataModel dailyDataModel = new DailyDataModel();
-    dailyDataModel.setDataDate(LocalDate.now());
+    dailyDataModel.setDataDate(LocalDate.now().toString());
     dailyDataModel.setUserId("1234567");
     dailyDataModel.setSteps(random.nextInt(1000) + 1000);
     dailyDataModel.setHoursOfSleep(2.6);

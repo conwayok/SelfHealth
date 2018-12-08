@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         swipeRefreshLayout.setOnRefreshListener(this);
 
         dailyDataModel = new DailyDataModel();
-        dailyDataModel.setDataDate(LocalDate.now());
+        dailyDataModel.setDataDate(LocalDate.now().toString());
         dailyDataModel.setUserId("1234567");
         dailyDataModel.setSteps(1234);
         dailyDataModel.setHoursOfSleep(2.6);

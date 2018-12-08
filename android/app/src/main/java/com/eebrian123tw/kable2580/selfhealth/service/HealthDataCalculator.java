@@ -18,7 +18,7 @@ import lombok.Data;
 
 @Data
 public class HealthDataCalculator {
-  private Map<LocalDate, DailyDataModel> dailyDataModelMap;
+  private Map<String, DailyDataModel> dailyDataModelMap;
   private List<DailyDataModel> dailyDataModelList;
 
   private LocalDate startDate;

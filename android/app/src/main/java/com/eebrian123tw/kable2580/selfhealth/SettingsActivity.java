@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
   private Switch showNotificationSwitch;
   private TextView dailyStepsGoal;
   private Button applyBtn;
+  private Button clearDataBtn;
   // todo: add other options to set other goals
 
   private SettingsModel settings;
@@ -31,12 +33,14 @@ public class SettingsActivity extends AppCompatActivity {
     showNotificationSwitch = findViewById(R.id.show_notifications_switch);
     dailyStepsGoal = findViewById(R.id.daily_steps_goal_num);
     applyBtn = findViewById(R.id.settings_apply_btn);
+    clearDataBtn = findViewById(R.id.clear_data_btn);
 
     settingsDao = new SettingsDao(this);
 
     try {
       settings = settingsDao.getSettings();
-      dailyStepsGoal.setText(settings.getDailyStepsGoal());
+      dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -55,5 +59,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
           }
         });
+
+//    clearDataBtn.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        HealthDataDao healthDataDao = new HealthDataDao(SettingsActivity.super.getApplicationContext());
+//
+//      }
+//    });
   }
 }

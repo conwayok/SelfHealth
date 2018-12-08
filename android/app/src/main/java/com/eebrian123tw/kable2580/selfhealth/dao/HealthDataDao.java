@@ -26,8 +26,7 @@ public class HealthDataDao {
 
   public void saveDailyData(DailyDataModel dailyDataModel) throws JsonProcessingException {
     SharedPreferences.Editor editor = sharedPref.edit();
-    editor.putString(
-        dailyDataModel.getDataDate().toString(), objectMapper.writeValueAsString(dailyDataModel));
+    editor.putString(dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
 
     editor.apply();
   }
@@ -38,7 +37,7 @@ public class HealthDataDao {
 
     for (DailyDataModel dailyDataModel : dailyDataModelList) {
       editor.putString(
-          dailyDataModel.getDataDate().toString(), objectMapper.writeValueAsString(dailyDataModel));
+          dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
     }
 
     editor.apply();
@@ -56,5 +55,20 @@ public class HealthDataDao {
     }
 
     return dailyDataModelList;
+  }
+
+  public void deleteData(LocalDate startDate, LocalDate endDate) {
+    SharedPreferences.Editor editor = sharedPref.edit();
+    if (startDate.equals(LocalDate.MIN) && endDate.equals(LocalDate.MAX)) {
+      // delete ALL data
+      editor.clear();
+    } else {
+      // delete some data
+      while (!startDate.equals(endDate.plusDays(1))) {
+        editor.remove(startDate.toString());
+        startDate = startDate.plusDays(1);
+      }
+    }
+    editor.apply();
   }
 }
