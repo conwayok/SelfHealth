@@ -5,24 +5,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.service.ExportImportService;
-import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import org.threeten.bp.LocalDate;
@@ -30,7 +23,6 @@ import org.threeten.bp.Month;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class ExportImportActivity extends AppCompatActivity
     implements View.OnClickListener, View.OnTouchListener {
@@ -142,7 +134,7 @@ public class ExportImportActivity extends AppCompatActivity
     try {
 
       ExportImportService exportImportService = new ExportImportService(ExportImportActivity.this);
-      exportImportService.saveHealthDataJson(file);
+      exportImportService.importData(file);
       //      ObjectMapper mapper = new ObjectMapper();
       //      TypeFactory typeFactory = mapper.getTypeFactory();
       //      SimpleModule module = new SimpleModule();

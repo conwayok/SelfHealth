@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,12 +23,12 @@ public class ExportImportService {
     healthDataDao = new HealthDataDao(context);
   }
 
-  public String getHealthDataString(LocalDate startDate, LocalDate endDate) throws IOException {
+  public void exportData(File pathFile, LocalDate startDate, LocalDate endDate) throws IOException {
     List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(startDate, endDate);
-    return objectMapper.writeValueAsString(dailyDataModelList);
+    objectMapper.writeValue(pathFile, dailyDataModelList);
   }
 
-  public void saveHealthDataJson(File data) throws IOException {
+  public void importData(File data) throws IOException {
 
     List<DailyDataModel> dailyDataModelList =
         objectMapper.readValue(
@@ -41,7 +40,7 @@ public class ExportImportService {
     healthDataDao.saveDailyData(dailyDataModelList);
   }
 
-  public void saveHealthDataJson(String data) throws IOException {
+  public void importData(String data) throws IOException {
     List<DailyDataModel> dailyDataModelList =
         objectMapper.readValue(
             data,
