@@ -44,47 +44,15 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
 
     addButton.setOnClickListener(this);
 
-    Intent intent=getIntent();
-    DetailDataUnit.Type type=(DetailDataUnit.Type) intent.getSerializableExtra("type");
 
-    LocalDate start = LocalDate.of(2018, 1, 1);
-    LocalDate end = LocalDate.now();
-
-//    HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
-    HealthDataDao healthDataDao=new HealthDataDao(this);
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    try {
-      List<DailyDataModel>dailyDataModelList=healthDataDao.getDailyData(start,end);
-      Log.i(TAG,dailyDataModelList.size()+"");
-      List<DetailDataUnit> detailData = new ArrayList<>();
-      Collections.reverse(dailyDataModelList);
-      for(DailyDataModel dailyDataModel:dailyDataModelList){
-        double value=0;
-        switch (type){
-          case STEPS:
-            value=dailyDataModel.getSteps();
-            break;
-          case SLEEP:
-            value=dailyDataModel.getHoursOfSleep();
-            break;
-          case DRINK:
-            value=dailyDataModel.getWaterCC();
-            break;
-          case PHONE_USE:
-            value=dailyDataModel.getHoursPhoneUse();
-            break;
-        }
-        LocalDate localDate = LocalDate.parse(dailyDataModel.getDataDate(), dateTimeFormatter);
-        detailData.add(new DetailDataUnit(type,value,localDate));
-      }
-      detailDataRecyclerView.setAdapter(new DetailDataAdapter(this, detailData));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
 //    healthDataCalculator.get
 
-
+  new Thread(new Runnable() {
+    @Override
+    public void run() {
+      loadData();
+    }
+  }).start();
 
 
   }
@@ -108,5 +76,50 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
         alert.show();
         break;
     }
+  }
+
+  private void loadData(){
+    Intent intent=getIntent();
+    DetailDataUnit.Type type=(DetailDataUnit.Type) intent.getSerializableExtra("type");
+
+    LocalDate start = LocalDate.of(2018, 1, 1);
+    LocalDate end = LocalDate.now();
+//    HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
+    HealthDataDao healthDataDao=new HealthDataDao(this);
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    try {
+      List<DailyDataModel>dailyDataModelList=healthDataDao.getDailyData(start,end);
+      Log.i(TAG,dailyDataModelList.size()+"");
+      final List<DetailDataUnit> detailData = new ArrayList<>();
+      Collections.reverse(dailyDataModelList);
+      for(DailyDataModel dailyDataModel:dailyDataModelList){
+        double value=0;
+        switch (type){
+          case STEPS:
+            value=dailyDataModel.getSteps();
+            break;
+          case SLEEP:
+            value=dailyDataModel.getHoursOfSleep();
+            break;
+          case DRINK:
+            value=dailyDataModel.getWaterCC();
+            break;
+          case PHONE_USE:
+            value=dailyDataModel.getHoursPhoneUse();
+            break;
+        }
+        LocalDate localDate = LocalDate.parse(dailyDataModel.getDataDate(), dateTimeFormatter);
+        detailData.add(new DetailDataUnit(type,value,localDate));
+      }
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          detailDataRecyclerView.setAdapter(new DetailDataAdapter(DetailDataActivity.this, detailData));
+        }
+      });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
   }
 }
