@@ -8,21 +8,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.service.HealthDataCalculator;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DetailDataActivity extends AppCompatActivity implements View.OnClickListener {
 
+  private static final String TAG = "DetailDataActivity";
   private RecyclerView detailDataRecyclerView;
   private Button addButton;
 
@@ -41,26 +47,46 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
     Intent intent=getIntent();
     DetailDataUnit.Type type=(DetailDataUnit.Type) intent.getSerializableExtra("type");
 
-    LocalDate start = LocalDate.of(2018, 12, 3);
-    LocalDate end = LocalDate.of(2018, 12, 8);
+    LocalDate start = LocalDate.of(2018, 1, 1);
+    LocalDate end = LocalDate.now();
 
+//    HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
+    HealthDataDao healthDataDao=new HealthDataDao(this);
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
+    try {
+      List<DailyDataModel>dailyDataModelList=healthDataDao.getDailyData(start,end);
+      Log.i(TAG,dailyDataModelList.size()+"");
+      List<DetailDataUnit> detailData = new ArrayList<>();
+      Collections.reverse(dailyDataModelList);
+      for(DailyDataModel dailyDataModel:dailyDataModelList){
+        double value=0;
+        switch (type){
+          case STEPS:
+            value=dailyDataModel.getSteps();
+            break;
+          case SLEEP:
+            value=dailyDataModel.getHoursOfSleep();
+            break;
+          case DRINK:
+            value=dailyDataModel.getWaterCC();
+            break;
+          case PHONE_USE:
+            value=dailyDataModel.getHoursPhoneUse();
+            break;
+        }
+        LocalDate localDate = LocalDate.parse(dailyDataModel.getDataDate(), dateTimeFormatter);
+        detailData.add(new DetailDataUnit(type,value,localDate));
+      }
+      detailDataRecyclerView.setAdapter(new DetailDataAdapter(this, detailData));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 //    healthDataCalculator.get
 
-    List<DetailDataUnit> detailData = new ArrayList<>();
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
-    detailData.add(new DetailDataUnit(DetailDataUnit.Type.STEPS,3462,LocalDate.now()));
 
-    detailDataRecyclerView.setAdapter(new DetailDataAdapter(this, detailData));
+
+
   }
 
 

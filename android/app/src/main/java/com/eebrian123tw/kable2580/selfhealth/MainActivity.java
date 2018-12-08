@@ -107,13 +107,12 @@ public class MainActivity extends AppCompatActivity
                 Intent intentStep = new Intent(this, DetailDataActivity.class);
                 intentStep.putExtra("type", DetailDataUnit.Type.STEPS);
                 startActivity(intentStep);
-
                 break;
             case R.id.sleep_button:
                 Intent intentSleep = new Intent(this, DetailDataActivity.class);
                 intentSleep.putExtra("type", DetailDataUnit.Type.SLEEP);
                 startActivity(intentSleep);
-
+                break;
             case R.id.drink_button:
                 Intent intentDrink = new Intent(this, DetailDataActivity.class);
                 intentDrink.putExtra("type", DetailDataUnit.Type.DRINK);
