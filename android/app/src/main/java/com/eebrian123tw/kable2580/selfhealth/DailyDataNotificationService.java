@@ -46,14 +46,13 @@ public class DailyDataNotificationService extends Service {
           @Override
           public void run() {
             Log.i(TAG, System.currentTimeMillis() / 1000 + "");
-            Random random = new Random();
             DailyDataModel dailyDataModel = new DailyDataModel();
             //                dailyDataModel.setDataDate(LocalDate.now());
             dailyDataModel.setUserId("1234567");
-            dailyDataModel.setSteps(random.nextInt(1000) + 1000);
+            dailyDataModel.setSteps( 1000);
             dailyDataModel.setHoursOfSleep(2.6);
             dailyDataModel.setHoursPhoneUse(3.5);
-            dailyDataModel.setWaterCC(random.nextInt(1000) + 1500);
+            dailyDataModel.setWaterCC(1500);
 
             notificationDailyData(dailyDataModel);
           }
