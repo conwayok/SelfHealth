@@ -49,7 +49,7 @@ public class DailyDataNotificationService extends Service {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        Log.i(TAG, System.currentTimeMillis() / 1000 + "");
+
                         HealthDataDao healthDataDao = new HealthDataDao(DailyDataNotificationService.this);
                         DailyDataModel dailyDataModel;
                         try {

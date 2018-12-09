@@ -84,8 +84,13 @@ public class MainActivity extends AppCompatActivity
             healthDataDao = new HealthDataDao(MainActivity.this);
             ;
             List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
-            dailyDataModel = dailyDataModelList.get(0);
-
+            if (dailyDataModelList.size() == 0) {
+                dailyDataModel = new DailyDataModel();
+                dailyDataModel.setDataDate(LocalDate.now().toString());
+                healthDataDao.saveDailyData(dailyDataModel);
+            } else {
+                dailyDataModel = dailyDataModelList.get(0);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,6 +108,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         handler = new Handler();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onRefresh();
     }
 
     @Override
