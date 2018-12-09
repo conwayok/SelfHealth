@@ -13,10 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
+
+import java.io.IOException;
+import java.util.List;
 
 import static com.eebrian123tw.kable2580.selfhealth.R.id;
 import static com.eebrian123tw.kable2580.selfhealth.R.layout.activity_main;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity
 
     private Handler handler;
     private DailyDataModel dailyDataModel;
+    private HealthDataDao healthDataDao;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -74,13 +79,16 @@ public class MainActivity extends AppCompatActivity
         settingsButton.setOnClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        dailyDataModel = new DailyDataModel();
-        dailyDataModel.setDataDate(LocalDate.now().toString());
-        dailyDataModel.setUserId("1234567");
-        dailyDataModel.setSteps(1234);
-        dailyDataModel.setHoursOfSleep(2.6);
-        dailyDataModel.setHoursPhoneUse(3.5);
-        dailyDataModel.setWaterCC(3000);
+
+        try {
+            healthDataDao = new HealthDataDao(MainActivity.this);
+            ;
+            List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
+            dailyDataModel = dailyDataModelList.get(0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         showDailyData();
 
@@ -172,16 +180,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-        // simulate data update
-        dailyDataModel.setSteps(12345);
-        dailyDataModel.setHoursPhoneUse(2.8);
-        dailyDataModel.setHoursOfSleep(8.5);
-        dailyDataModel.setWaterCC(4000);
-
         handler.postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            healthDataDao = new HealthDataDao(MainActivity.this);
+                            List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
+                            dailyDataModel = dailyDataModelList.get(0);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         showDailyData();
                         swipeRefreshLayout.setRefreshing(false);
                     }
