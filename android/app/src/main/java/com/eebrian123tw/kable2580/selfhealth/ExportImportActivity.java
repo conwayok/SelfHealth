@@ -45,26 +45,6 @@ public class ExportImportActivity extends AppCompatActivity
     fileNameTextView.setOnTouchListener(this);
   }
 
-  //    public static class LocalDateDeserializer extends StdDeserializer<LocalDate> {
-  //        public LocalDateDeserializer() {
-  //            super(LocalDate.class);
-  //        }
-  //
-  //        @Override
-  //        public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt) throws
-  // IOException {
-  //            try {
-  //                JsonNode node = jp.getCodec().readTree(jp);
-  //                int year = Integer.parseInt(node.get("year").asText());
-  //                Month month = Month.valueOf(node.get("month").asText());
-  //                int dayOfMonth = Integer.parseInt(node.get("dayOfMonth").asText());
-  //                return LocalDate.of(year, month, dayOfMonth);
-  //            } catch (final Exception e) {
-  //                throw new IOException(e);
-  //            }
-  //        }
-  //    }
-
   @Override
   public void onClick(View v) {
     switch (v.getId()) {
