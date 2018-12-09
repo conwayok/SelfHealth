@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity
 
         try {
             healthDataDao = new HealthDataDao(MainActivity.this);
-            ;
             List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
             if (dailyDataModelList.size() == 0) {
                 dailyDataModel = new DailyDataModel();
@@ -199,7 +198,6 @@ public class MainActivity extends AppCompatActivity
                             healthDataDao = new HealthDataDao(MainActivity.this);
                             List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
                             dailyDataModel = dailyDataModelList.get(0);
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

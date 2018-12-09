@@ -20,4 +20,5 @@
     <string name="sleep">sleep</string>
     <string name="drink">drink</string>
     <string name="phone_use">phone use</string>
+    <string name="confirm">confirm</string>
 </resources>

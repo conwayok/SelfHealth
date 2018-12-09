@@ -20,4 +20,5 @@
     <string name="sleep">睡眠</string>
     <string name="drink">饮水</string>
     <string name="phone_use">滑手机</string>
+    <string name="confirm">确认</string>
 </resources>

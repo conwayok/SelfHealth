@@ -1,6 +1,7 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -93,10 +94,12 @@ public class ExportImportActivity extends AppCompatActivity
             case R.id.file_name_textview:
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     fileNameTextView.setLines(0);
+                    fileNameTextView.setMaxLines(Integer.MAX_VALUE);
                     fileNameTextView.setEllipsize(null);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     fileNameTextView.setLines(1);
                     fileNameTextView.setEllipsize(TextUtils.TruncateAt.END);
+
                 }
                 break;
         }
