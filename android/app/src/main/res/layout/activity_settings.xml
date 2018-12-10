@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/notification_settings_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/steps_goal_text"
+        android:id="@+id/daily_steps_goal_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -43,10 +43,10 @@
         android:layout_marginTop="35dp"
         android:ems="10"
         android:inputType="number"
-        android:singleLine="false"
-        android:text="1000"
+        android:singleLine="true"
         android:textAlignment="center"
-        app:layout_constraintStart_toEndOf="@+id/steps_goal_text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/daily_steps_goal_text"
         app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
 
     <Button
@@ -70,5 +70,74 @@
         android:text="Clear Data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/daily_sleep_goal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Daily sleep goal: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_steps_goal_num" />
+
+    <EditText
+        android:id="@+id/daily_sleep_goal_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/daily_sleep_goal_text"
+        app:layout_constraintTop_toBottomOf="@+id/daily_steps_goal_num" />
+
+    <EditText
+        android:id="@+id/daily_phone_use_goal_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/daily_phone_use_goal_text"
+        app:layout_constraintTop_toBottomOf="@+id/daily_sleep_goal_num" />
+
+    <EditText
+        android:id="@+id/daily_water_goal_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/daily_water_goal_text"
+        app:layout_constraintTop_toBottomOf="@+id/daily_phone_use_goal_num" />
+
+    <TextView
+        android:id="@+id/daily_phone_use_goal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Daily phone use goal: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_sleep_goal_num" />
+
+    <TextView
+        android:id="@+id/daily_water_goal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:text="Daily water goal: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_phone_use_goal_num" />
 
 </android.support.constraint.ConstraintLayout>

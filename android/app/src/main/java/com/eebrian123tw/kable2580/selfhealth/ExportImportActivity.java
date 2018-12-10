@@ -1,7 +1,6 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;

@@ -30,177 +30,187 @@ import java.util.List;
 
 public class DetailDataActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "DetailDataActivity";
-    private RecyclerView detailDataRecyclerView;
-    private Button addButton;
-    private DetailDataUnit.Type type;
+  private static final String TAG = "DetailDataActivity";
+  private RecyclerView detailDataRecyclerView;
+  private Button addButton;
+  private DetailDataUnit.Type type;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_data);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_detail_data);
 
-        addButton = findViewById(R.id.add_button);
-        detailDataRecyclerView = findViewById(R.id.datail_data_recyclerview);
-        detailDataRecyclerView.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    addButton = findViewById(R.id.add_button);
+    detailDataRecyclerView = findViewById(R.id.datail_data_recyclerview);
+    detailDataRecyclerView.setLayoutManager(
+        new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        addButton.setOnClickListener(this);
+    addButton.setOnClickListener(this);
 
+    Intent intent = getIntent();
+    type = (DetailDataUnit.Type) intent.getSerializableExtra("type");
 
-        Intent intent = getIntent();
-        type = (DetailDataUnit.Type) intent.getSerializableExtra("type");
+    //    healthDataCalculator.get
 
-
-//    healthDataCalculator.get
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+    new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
                 loadData();
-            }
-        }).start();
+              }
+            })
+        .start();
+  }
 
-
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.add_button:
+        addData();
+        break;
     }
+  }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_button:
-                addData();
-                break;
-        }
-    }
-
-    private void addData() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
+  private void addData() {
+    DatePickerDialog datePickerDialog =
+        new DatePickerDialog(
+            this,
+            new DatePickerDialog.OnDateSetListener() {
+              @SuppressLint("SetTextI18n")
+              @Override
+              public void onDateSet(DatePicker view, int year, int month, int day) {
                 final LocalDate localDate = LocalDate.of(year, month + 1, day);
                 final HealthDataDao healthDataDao = new HealthDataDao(DetailDataActivity.this);
                 DailyDataModel dailyDataModel;
                 try {
-                    List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(localDate, localDate);
-                    if (dailyDataModelList.size() == 0) {
-                        dailyDataModel = new DailyDataModel();
-                    } else {
-                        dailyDataModel = dailyDataModelList.get(0);
-                    }
+                  List<DailyDataModel> dailyDataModelList =
+                      healthDataDao.getDailyData(localDate, localDate);
+                  if (dailyDataModelList.size() == 0) {
+                    dailyDataModel = new DailyDataModel();
+                  } else {
+                    dailyDataModel = dailyDataModelList.get(0);
+                  }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    dailyDataModel = new DailyDataModel();
+                  e.printStackTrace();
+                  dailyDataModel = new DailyDataModel();
                 }
 
                 dailyDataModel.setDataDate(localDate.toString());
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(DetailDataActivity.this);
                 final EditText edittext = new EditText(DetailDataActivity.this);
-                edittext.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                edittext.setInputType(
+                    InputType.TYPE_CLASS_NUMBER
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL
+                        | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 switch (type) {
-                    case STEPS:
-                        alert.setMessage(getString(R.string.step));
-                        edittext.setText(dailyDataModel.getSteps() + "");
-                        break;
-                    case SLEEP:
-                        alert.setMessage(getString(R.string.sleep));
-                        edittext.setText(dailyDataModel.getHoursOfSleep() + "");
-                        break;
-                    case DRINK:
-                        alert.setMessage(getString(R.string.drink));
-                        edittext.setText(dailyDataModel.getWaterCC() + "");
+                  case STEPS:
+                    alert.setMessage(getString(R.string.step));
+                    edittext.setText(dailyDataModel.getSteps() + "");
+                    break;
+                  case SLEEP:
+                    alert.setMessage(getString(R.string.sleep));
+                    edittext.setText(dailyDataModel.getHoursOfSleep() + "");
+                    break;
+                  case DRINK:
+                    alert.setMessage(getString(R.string.drink));
+                    edittext.setText(dailyDataModel.getWaterCC() + "");
 
-                        break;
-                    case PHONE_USE:
-                        alert.setMessage(getString(R.string.phone_use));
-                        edittext.setText(dailyDataModel.getHoursPhoneUse() + "");
+                    break;
+                  case PHONE_USE:
+                    alert.setMessage(getString(R.string.phone_use));
+                    edittext.setText(dailyDataModel.getHoursPhoneUse() + "");
 
-                        break;
+                    break;
                 }
                 edittext.setSelection(edittext.getText().toString().length());
                 alert.setTitle(localDate.toString());
                 alert.setView(edittext);
                 final DailyDataModel finalDailyDataModel = dailyDataModel;
-                alert.setPositiveButton(getText(R.string.confirm), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+                alert.setPositiveButton(
+                    getText(R.string.confirm),
+                    new DialogInterface.OnClickListener() {
+                      public void onClick(DialogInterface dialog, int whichButton) {
 
                         try {
 
-                            switch (type) {
-                                case STEPS:
-                                    finalDailyDataModel.setSteps(Integer.parseInt(edittext.getText().toString()));
-                                    break;
-                                case SLEEP:
-                                    finalDailyDataModel.setHoursOfSleep(Double.parseDouble(edittext.getText().toString()));
-                                    break;
-                                case DRINK:
-                                    finalDailyDataModel.setWaterCC(Integer.parseInt(edittext.getText().toString()));
-                                    break;
-                                case PHONE_USE:
-                                    finalDailyDataModel.setHoursPhoneUse(Double.parseDouble(edittext.getText().toString()));
-                                    break;
-                            }
-                            healthDataDao.saveDailyData(finalDailyDataModel);
-                            loadData();
+                          switch (type) {
+                            case STEPS:
+                              finalDailyDataModel.setSteps(
+                                  Integer.parseInt(edittext.getText().toString()));
+                              break;
+                            case SLEEP:
+                              finalDailyDataModel.setHoursOfSleep(
+                                  Double.parseDouble(edittext.getText().toString()));
+                              break;
+                            case DRINK:
+                              finalDailyDataModel.setWaterCC(
+                                  Integer.parseInt(edittext.getText().toString()));
+                              break;
+                            case PHONE_USE:
+                              finalDailyDataModel.setHoursPhoneUse(
+                                  Double.parseDouble(edittext.getText().toString()));
+                              break;
+                          }
+                          healthDataDao.saveDailyData(finalDailyDataModel);
+                          loadData();
                         } catch (Exception e) {
-                            e.printStackTrace();
+                          e.printStackTrace();
                         }
-
-                    }
-                });
+                      }
+                    });
                 alert.show();
+              }
+            },
+            LocalDate.now().getYear(),
+            LocalDate.now().getMonthValue() - 1,
+            LocalDate.now().getDayOfMonth());
+    datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+    datePickerDialog.show();
+  }
 
-            }
+  private void loadData() {
 
-        }, LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth());
-        datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
-        datePickerDialog.show();
-
-    }
-
-    private void loadData() {
-
-
-        LocalDate start = LocalDate.of(2018, 1, 1);
-        LocalDate end = LocalDate.now();
-        HealthDataDao healthDataDao = new HealthDataDao(this);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(start, end);
-            Log.i(TAG, dailyDataModelList.size() + "");
-            final List<DetailDataUnit> detailData = new ArrayList<>();
-            Collections.reverse(dailyDataModelList);
-            for (DailyDataModel dailyDataModel : dailyDataModelList) {
-                double value = 0;
-                switch (type) {
-                    case STEPS:
-                        value = dailyDataModel.getSteps();
-                        break;
-                    case SLEEP:
-                        value = dailyDataModel.getHoursOfSleep();
-                        break;
-                    case DRINK:
-                        value = dailyDataModel.getWaterCC();
-                        break;
-                    case PHONE_USE:
-                        value = dailyDataModel.getHoursPhoneUse();
-                        break;
-                }
-                LocalDate localDate = LocalDate.parse(dailyDataModel.getDataDate(), dateTimeFormatter);
-                detailData.add(new DetailDataUnit(type, value, localDate));
-            }
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    detailDataRecyclerView.setAdapter(new DetailDataAdapter(DetailDataActivity.this, detailData));
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+    LocalDate start = LocalDate.of(2018, 1, 1);
+    LocalDate end = LocalDate.now();
+    HealthDataDao healthDataDao = new HealthDataDao(this);
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    try {
+      List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(start, end);
+      Log.i(TAG, dailyDataModelList.size() + "");
+      final List<DetailDataUnit> detailData = new ArrayList<>();
+      Collections.reverse(dailyDataModelList);
+      for (DailyDataModel dailyDataModel : dailyDataModelList) {
+        double value = 0;
+        switch (type) {
+          case STEPS:
+            value = dailyDataModel.getSteps();
+            break;
+          case SLEEP:
+            value = dailyDataModel.getHoursOfSleep();
+            break;
+          case DRINK:
+            value = dailyDataModel.getWaterCC();
+            break;
+          case PHONE_USE:
+            value = dailyDataModel.getHoursPhoneUse();
+            break;
         }
+        LocalDate localDate = LocalDate.parse(dailyDataModel.getDataDate(), dateTimeFormatter);
+        detailData.add(new DetailDataUnit(type, value, localDate));
+      }
 
+      runOnUiThread(
+          new Runnable() {
+            @Override
+            public void run() {
+              detailDataRecyclerView.setAdapter(
+                  new DetailDataAdapter(DetailDataActivity.this, detailData));
+            }
+          });
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 }

@@ -35,9 +35,13 @@ public class SettingsDao {
       SettingsModel settingsModel = new SettingsModel();
       settingsModel.setDailyStepsGoal(10000);
       settingsModel.setDailySleepHoursGoal(8);
-      settingsModel.setDailyPhoneUseHoursGoal(2);
-      settingsModel.setDailyWaterIntakeGoal(3000);
+      settingsModel.setDailyPhoneUseHoursGoal(4);
+      settingsModel.setDailyWaterGoal(3000);
       return settingsModel;
     }
+  }
+
+  public void deleteAll() {
+    sharedPref.edit().clear().apply();
   }
 }

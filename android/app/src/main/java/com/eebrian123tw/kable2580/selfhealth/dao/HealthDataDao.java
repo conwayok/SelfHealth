@@ -71,4 +71,10 @@ public class HealthDataDao {
     }
     editor.apply();
   }
+
+  public void deleteDataAll() {
+    SharedPreferences.Editor editor = sharedPref.edit();
+    // delete ALL data
+    editor.clear().apply();
+  }
 }

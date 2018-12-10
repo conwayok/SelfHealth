@@ -8,5 +8,5 @@ public class SettingsModel {
   private int dailyStepsGoal;
   private double dailySleepHoursGoal;
   private double dailyPhoneUseHoursGoal;
-  private int dailyWaterIntakeGoal;
+  private int dailyWaterGoal;
 }
