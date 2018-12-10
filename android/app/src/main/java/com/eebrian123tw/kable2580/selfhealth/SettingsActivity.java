@@ -1,5 +1,6 @@
 package com.eebrian123tw.kable2580.selfhealth;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,16 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         clearDataBtn = findViewById(R.id.clear_data_btn);
         settingsDao = new SettingsDao(this);
 
-        try {
-            settings = settingsDao.getSettings();
-            showNotificationSwitch.setChecked(settings.isShowNotification());
-            dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
-            dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
-            dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
-            dailyWaterGoal.setText(Integer.toString(settings.getDailyWaterGoal()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setSettingsState();
 
         showNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,6 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        
 
         applyBtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -110,7 +104,25 @@ public class SettingsActivity extends AppCompatActivity {
                         new HealthDataDao(SettingsActivity.this).deleteDataAll();
                         new SettingsDao(SettingsActivity.this).deleteAll();
                         Toast.makeText(SettingsActivity.this, "cleared all data", Toast.LENGTH_SHORT).show();
+
+                        setSettingsState();
+
                     }
                 });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setSettingsState() {
+        try {
+            settings = settingsDao.getSettings();
+            showNotificationSwitch.setChecked(settings.isShowNotification());
+            dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
+            dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
+            dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
+            dailyWaterGoal.setText(Integer.toString(settings.getDailyWaterGoal()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
