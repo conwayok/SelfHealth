@@ -62,9 +62,11 @@ public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.Vi
                 stringType = context.getString(R.string.step);
 
         }
-        viewHolder.dataTimeTextView.setText(localDate.toString());
+
         viewHolder.dataTypeTextView.setText(stringType);
+
         viewHolder.valueTextView.setText(String.valueOf(detailDataUnit.getValue()));
+        viewHolder.dataTimeTextView.setText(localDate.toString());
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override

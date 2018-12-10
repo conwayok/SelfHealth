@@ -18,6 +18,7 @@ import android.widget.RemoteViews;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
@@ -113,11 +114,44 @@ public class DailyDataNotificationService extends Service {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notification_daily_data);
-        remoteViews.setTextColor(R.id.notication_title, Color.GREEN);
-        remoteViews.setTextColor(R.id.notification_sleep_textview, Color.BLACK);
-        remoteViews.setTextColor(R.id.notification_drink_textview, Color.BLACK);
-        remoteViews.setTextColor(R.id.notification_use_phone_textview, Color.BLACK);
-        remoteViews.setTextColor(R.id.notification_step_textview, Color.BLACK);
+
+        try {
+            boolean warn = false;
+            SettingsModel settingsModel = settingsDao.getSettings();
+            if (dailyDataModel.getSteps() < settingsModel.getDailyStepsGoal()) {
+                remoteViews.setTextColor(R.id.notification_step_textview, Color.RED);
+                warn = true;
+            } else {
+                remoteViews.setTextColor(R.id.notification_step_textview, Color.BLACK);
+            }
+            if (dailyDataModel.getWaterCC() < settingsModel.getDailyWaterGoal()) {
+                remoteViews.setTextColor(R.id.notification_drink_textview, Color.RED);
+                warn = true;
+            } else {
+                remoteViews.setTextColor(R.id.notification_drink_textview, Color.BLACK);
+            }
+            if (dailyDataModel.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
+                remoteViews.setTextColor(R.id.notification_sleep_textview, Color.RED);
+                warn = true;
+            } else {
+                remoteViews.setTextColor(R.id.notification_sleep_textview, Color.BLACK);
+            }
+            if (dailyDataModel.getHoursPhoneUse() > settingsModel.getDailyPhoneUseHoursGoal()) {
+                remoteViews.setTextColor(R.id.notification_use_phone_textview, Color.RED);
+                warn = true;
+            }else {
+                remoteViews.setTextColor(R.id.notification_use_phone_textview, Color.BLACK);
+            }
+            if (warn) {
+                remoteViews.setTextColor(R.id.notication_title, Color.rgb(255, 165, 0));
+            } else {
+                remoteViews.setTextColor(R.id.notication_title, Color.GREEN);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         remoteViews.setTextViewText(
                 R.id.notification_step_textview,
                 getString(R.string.today_step_string)
@@ -178,7 +212,7 @@ public class DailyDataNotificationService extends Service {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForeground(notificationId, notificationBuilder.build());
                     //                notificationManager.notify(notificationId, notificationBuilder.build());
-                } else if(notificationManager != null){
+                } else if (notificationManager != null) {
                     notificationManager.notify(notificationId, notificationBuilder.build());
                 }
             } else {

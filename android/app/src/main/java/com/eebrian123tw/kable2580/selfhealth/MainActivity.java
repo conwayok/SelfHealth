@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
+import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     private Handler handler;
     private DailyDataModel dailyDataModel;
     private HealthDataDao healthDataDao;
+    private SettingsDao settingsDao;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         settingsButton.setOnClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
+        settingsDao = new SettingsDao(this);
 
         try {
             healthDataDao = new HealthDataDao(MainActivity.this);
@@ -161,6 +166,38 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressLint("SetTextI18n")
     private void showDailyData() {
+        try {
+            SettingsModel settingsModel = settingsDao.getSettings();
+
+            if (dailyDataModel.getSteps() < settingsModel.getDailyStepsGoal()) {
+                stepButton.setTextColor(Color.RED);
+
+            } else {
+                stepButton.setTextColor(Color.GREEN);
+            }
+            if (dailyDataModel.getWaterCC() < settingsModel.getDailyWaterGoal()) {
+                drinkButton.setTextColor(Color.RED);
+
+            } else {
+                drinkButton.setTextColor(Color.GREEN);
+            }
+            if (dailyDataModel.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
+                sleepButton.setTextColor(Color.RED);
+            } else {
+                sleepButton.setTextColor(Color.GREEN);
+            }
+            if (dailyDataModel.getHoursPhoneUse() > settingsModel.getDailyPhoneUseHoursGoal()) {
+                usePhoneButton.setTextColor(Color.RED);
+            } else {
+                usePhoneButton.setTextColor(Color.GREEN);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         stepButton.setText(dailyDataModel.getSteps() + getString(step_string));
         sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(hour_string));
         drinkButton.setText(dailyDataModel.getWaterCC() + getString(cc_string));

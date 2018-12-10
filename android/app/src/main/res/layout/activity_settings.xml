@@ -6,138 +6,254 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-    <Switch
-        android:id="@+id/show_notifications_switch"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="70dp"
-        android:text="Show Notification "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp">
 
-    <TextView
-        android:id="@+id/notification_settings_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="35dp"
-        android:text="NOTIFICATION SETTINGS"
-        app:layout_constraintBottom_toTopOf="@+id/show_notifications_switch"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="209dp"
+            tools:layout_editor_absoluteY="8dp">
 
-    <TextView
-        android:id="@+id/daily_steps_goal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text="Daily steps goal: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
+            <TextView
+                android:id="@+id/notification_settings_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOTIFICATION SETTINGS"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="48dp"
+                tools:layout_editor_absoluteY="32dp" />
 
-    <EditText
-        android:id="@+id/daily_steps_goal_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:ems="10"
-        android:inputType="number"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/daily_steps_goal_text"
-        app:layout_constraintTop_toBottomOf="@+id/show_notifications_switch" />
+            <Switch
+                android:id="@+id/show_notifications_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show Notification "
+                android:textColor="@android:color/darker_gray"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="52dp" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/settings_apply_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="60dp"
-        android:text="apply"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/clear_data_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="8dp"
-        android:text="Clear Data"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/daily_sleep_goal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text="Daily sleep goal: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daily_steps_goal_num" />
+        <LinearLayout
+            android:id="@+id/steps_goal_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="62dp">
 
-    <EditText
-        android:id="@+id/daily_sleep_goal_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:ems="10"
-        android:inputType="number"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/daily_sleep_goal_text"
-        app:layout_constraintTop_toBottomOf="@+id/daily_steps_goal_num" />
+            <TextView
+                android:id="@+id/daily_steps_goal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daily steps goal: "
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="39dp"
+                tools:layout_editor_absoluteY="124dp" />
 
-    <EditText
-        android:id="@+id/daily_phone_use_goal_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:ems="10"
-        android:inputType="number"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/daily_phone_use_goal_text"
-        app:layout_constraintTop_toBottomOf="@+id/daily_sleep_goal_num" />
+            <TextView
+                android:id="@+id/daily_steps_goal_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="208dp"
+                tools:layout_editor_absoluteY="143dp" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/daily_water_goal_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:ems="10"
-        android:inputType="number"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/daily_water_goal_text"
-        app:layout_constraintTop_toBottomOf="@+id/daily_phone_use_goal_num" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/daily_phone_use_goal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text="Daily phone use goal: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daily_sleep_goal_num" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/daily_water_goal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
-        android:text="Daily water goal: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daily_phone_use_goal_num" />
+        <LinearLayout
+            android:id="@+id/sleep_goal_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="126dp">
+
+            <TextView
+                android:id="@+id/daily_sleep_goal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daily sleep goal: "
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="215dp" />
+
+            <TextView
+                android:id="@+id/daily_sleep_goal_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="104dp"
+                tools:layout_editor_absoluteY="215dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/water_goal_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="287dp">
+
+            <TextView
+                android:id="@+id/daily_water_goal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daily water goal: "
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="359dp" />
+
+            <TextView
+                android:id="@+id/daily_water_goal_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="146dp"
+                tools:layout_editor_absoluteY="359dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phone_use_goal_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="190dp">
+
+            <TextView
+                android:id="@+id/daily_phone_use_goal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daily phone use goal: "
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="287dp" />
+
+            <TextView
+                android:id="@+id/daily_phone_use_goal_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:singleLine="true"
+                android:textAlignment="viewStart"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="287dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="391dp">
+
+            <Button
+                android:id="@+id/settings_apply_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="apply"
+                tools:layout_editor_absoluteX="104dp"
+                tools:layout_editor_absoluteY="478dp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/clear_data_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Clear Data"
+                tools:layout_editor_absoluteX="271dp"
+                tools:layout_editor_absoluteY="511dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
