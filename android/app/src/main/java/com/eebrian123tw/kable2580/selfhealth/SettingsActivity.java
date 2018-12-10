@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,14 +28,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private TextView dailySleepGoal;
     private TextView dailyPhoneUseGoal;
     private TextView dailyWaterGoal;
-    private Button applyBtn;
-    private Button clearDataBtn;
     private SettingsDao settingsDao;
     private SettingsModel settings;
     private LinearLayout stepsGoalLinearLayout;
     private LinearLayout sleepGoalLinearLayout;
     private LinearLayout waterGoalLinearLayout;
     private LinearLayout phoneUseGoalLinearLayout;
+    private LinearLayout clearDataLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         dailySleepGoal = findViewById(R.id.daily_sleep_goal_num);
         dailyPhoneUseGoal = findViewById(R.id.daily_phone_use_goal_num);
         dailyWaterGoal = findViewById(R.id.daily_water_goal_num);
-        applyBtn = findViewById(R.id.settings_apply_btn);
-        clearDataBtn = findViewById(R.id.clear_data_btn);
+        clearDataLinearLayout = findViewById(R.id.clear_data_linear_layout);
 
 
         stepsGoalLinearLayout = findViewById(R.id.steps_goal_linear_layout);
@@ -59,8 +56,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         settingsDao = new SettingsDao(this);
 
-        applyBtn.setOnClickListener(this);
-        clearDataBtn.setOnClickListener(this);
+        clearDataLinearLayout.setOnClickListener(this);
         stepsGoalLinearLayout.setOnClickListener(this);
         sleepGoalLinearLayout.setOnClickListener(this);
         waterGoalLinearLayout.setOnClickListener(this);
@@ -88,50 +84,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.settings_apply_btn:
-                boolean showNotification = showNotificationSwitch.isChecked();
-                String dailyStepsGoalStr = dailyStepsGoal.getText().toString();
-                String dailySleepGoalStr = dailySleepGoal.getText().toString();
-                String dailyPhoneUseGoalStr = dailyPhoneUseGoal.getText().toString();
-                String dailyWaterGoalStr = dailyWaterGoal.getText().toString();
 
-                try {
-                    settings = settingsDao.getSettings();
-                    settings.setShowNotification(showNotification);
-                    settings.setDailyStepsGoal(Integer.parseInt(dailyStepsGoalStr));
-                    settings.setDailySleepHoursGoal(Double.parseDouble(dailySleepGoalStr));
-                    settings.setDailyPhoneUseHoursGoal(Double.parseDouble(dailyPhoneUseGoalStr));
-                    settings.setDailyWaterGoal(Integer.parseInt(dailyWaterGoalStr));
+            case R.id.clear_data_linear_layout: {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Clear Data");
+                alert.setMessage("clear settings and info of health");
+                alert.setNegativeButton(R.string.dialog_cancel,null);
+                alert.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                        new HealthDataDao(SettingsActivity.this).deleteDataAll();
+                        settingsDao.deleteAll();
+                        Toast.makeText(SettingsActivity.this, "cleared all data", Toast.LENGTH_SHORT).show();
+                        setSettingsState();
+                    }
+                }).show();
+            }
 
-                    Toast.makeText(
-                            SettingsActivity.this,
-                            "Goals: \nsteps "
-                                    + dailyStepsGoalStr
-                                    + "\nsleep "
-                                    + dailySleepGoalStr
-                                    + "\nphoneUse "
-                                    + dailyPhoneUseGoalStr
-                                    + "\nwater "
-                                    + dailyWaterGoalStr,
-                            Toast.LENGTH_SHORT)
-                            .show();
-                    settingsDao.saveSettings(settings);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                break;
-
-
-            case R.id.clear_data_btn:
-                new HealthDataDao(SettingsActivity.this).deleteDataAll();
-                new SettingsDao(SettingsActivity.this).deleteAll();
-                Toast.makeText(SettingsActivity.this, "cleared all data", Toast.LENGTH_SHORT).show();
-
-                setSettingsState();
-                break;
+            break;
 
 
             case R.id.steps_goal_linear_layout: {

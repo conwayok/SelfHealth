@@ -30,7 +30,7 @@
                 android:text="NOTIFICATION SETTINGS"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="48dp"
                 tools:layout_editor_absoluteY="32dp" />
 
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="Show Notification "
                 android:textColor="@android:color/darker_gray"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="32dp"
                 tools:layout_editor_absoluteY="52dp" />
         </LinearLayout>
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="Daily steps goal: "
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="39dp"
                 tools:layout_editor_absoluteY="124dp" />
 
@@ -79,7 +79,7 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:textAlignment="viewStart"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="208dp"
                 tools:layout_editor_absoluteY="143dp" />
         </LinearLayout>
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="Daily sleep goal: "
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="215dp" />
 
@@ -118,7 +118,7 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:textAlignment="viewStart"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="104dp"
                 tools:layout_editor_absoluteY="215dp" />
         </LinearLayout>
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:text="Daily water goal: "
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="40dp"
                 tools:layout_editor_absoluteY="359dp" />
 
@@ -157,7 +157,7 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:textAlignment="viewStart"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="146dp"
                 tools:layout_editor_absoluteY="359dp" />
         </LinearLayout>
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:text="Daily phone use goal: "
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="40dp"
                 tools:layout_editor_absoluteY="287dp" />
 
@@ -196,7 +196,7 @@
                 android:ems="10"
                 android:singleLine="true"
                 android:textAlignment="viewStart"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="174dp"
                 tools:layout_editor_absoluteY="287dp" />
 
@@ -212,38 +212,38 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/clear_data_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="5dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="391dp">
 
-            <Button
-                android:id="@+id/settings_apply_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="apply"
-                tools:layout_editor_absoluteX="104dp"
-                tools:layout_editor_absoluteY="478dp" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button"
-                android:visibility="invisible" />
-
-            <Button
+            <TextView
                 android:id="@+id/clear_data_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Clear Data"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="271dp"
                 tools:layout_editor_absoluteY="511dp" />
+
+            <TextView
+                android:id="@+id/daily_phone_use_goal_num3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:singleLine="true"
+                android:text="clear settings and info of health"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="287dp" />
+
         </LinearLayout>
 
         <LinearLayout
