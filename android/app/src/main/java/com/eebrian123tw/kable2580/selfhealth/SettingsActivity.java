@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +19,10 @@ import java.io.IOException;
 public class SettingsActivity extends AppCompatActivity {
 
   private Switch showNotificationSwitch;
-  private TextView dailyStepsGoal;
-  private TextView dailySleepGoal;
-  private TextView dailyPhoneUseGoal;
-  private TextView dailyWaterGoal;
+  private EditText dailyStepsGoal;
+  private EditText dailySleepGoal;
+  private EditText dailyPhoneUseGoal;
+  private EditText dailyWaterGoal;
   private Button applyBtn;
   private Button clearDataBtn;
   private SettingsDao settingsDao;

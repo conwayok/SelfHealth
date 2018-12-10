@@ -16,6 +16,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
+import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -29,10 +30,13 @@ import java.util.TimerTask;
 public class DailyDataNotificationService extends Service {
     private static final String TAG = "DailyDataNotService";
 
+    private SettingsDao settingsDao;
+
     @Override
     public void onCreate() {
         // initialize time zone information
         AndroidThreeTen.init(this);
+        settingsDao = new SettingsDao(this);
     }
 
     @Override
@@ -49,10 +53,10 @@ public class DailyDataNotificationService extends Service {
                 new TimerTask() {
                     @Override
                     public void run() {
-
-                        HealthDataDao healthDataDao = new HealthDataDao(DailyDataNotificationService.this);
-                        DailyDataModel dailyDataModel;
                         try {
+                            HealthDataDao healthDataDao = new HealthDataDao(DailyDataNotificationService.this);
+                            DailyDataModel dailyDataModel;
+
                             List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
                             if (dailyDataModelList.size() == 0) {
                                 dailyDataModel = new DailyDataModel();
@@ -61,8 +65,9 @@ public class DailyDataNotificationService extends Service {
                             } else {
                                 dailyDataModel = dailyDataModelList.get(0);
                             }
-
                             notificationDailyData(dailyDataModel);
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -109,7 +114,6 @@ public class DailyDataNotificationService extends Service {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notification_daily_data);
         remoteViews.setTextColor(R.id.notication_title, Color.GREEN);
-
         remoteViews.setTextColor(R.id.notification_sleep_textview, Color.BLACK);
         remoteViews.setTextColor(R.id.notification_drink_textview, Color.BLACK);
         remoteViews.setTextColor(R.id.notification_use_phone_textview, Color.BLACK);
@@ -169,13 +173,26 @@ public class DailyDataNotificationService extends Service {
             }
         }
 
-        if (notificationManager != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForeground(notificationId, notificationBuilder.build());
-                //                notificationManager.notify(notificationId, notificationBuilder.build());
+        try {
+            if (settingsDao.getSettings().isShowNotification()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForeground(notificationId, notificationBuilder.build());
+                    //                notificationManager.notify(notificationId, notificationBuilder.build());
+                } else if(notificationManager != null){
+                    notificationManager.notify(notificationId, notificationBuilder.build());
+                }
             } else {
-                notificationManager.notify(notificationId, notificationBuilder.build());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForeground(notificationId, notificationBuilder.build());
+                    stopForeground(true);
+                    //                notificationManager.notify(notificationId, notificationBuilder.build());
+                } else if (notificationManager != null) {
+                    notificationManager.cancel(notificationId);
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
