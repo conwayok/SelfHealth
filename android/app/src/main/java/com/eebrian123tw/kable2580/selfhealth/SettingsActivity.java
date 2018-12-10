@@ -70,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     settings.setShowNotification(isChecked);
                     settingsDao.saveSettings(settings);
+                    setSettingsState();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -240,6 +241,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         try {
             settings = settingsDao.getSettings();
             showNotificationSwitch.setChecked(settings.isShowNotification());
+            if(settings.isShowNotification()){
+                showNotificationSwitch.setText("Show Notification");
+            }else {
+                showNotificationSwitch.setText("Hidden Notification");
+            }
             dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
             dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
             dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
