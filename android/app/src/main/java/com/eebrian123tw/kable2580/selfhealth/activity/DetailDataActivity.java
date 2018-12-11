@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth;
+package com.eebrian123tw.kable2580.selfhealth.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -16,7 +16,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.eebrian123tw.kable2580.selfhealth.R;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
+import com.eebrian123tw.kable2580.selfhealth.service.DetailDataAdapter;
+import com.eebrian123tw.kable2580.selfhealth.service.DetailDataUnit;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDate;

@@ -12,6 +12,7 @@ import org.threeten.bp.LocalDate;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.eebrian123tw.kable2580.selfhealth.config.Config.DAILY_DATA;
 
@@ -55,6 +56,14 @@ public class HealthDataDao {
     }
 
     return dailyDataModelList;
+  }
+
+  public List<DailyDataModel> getDailyDataAll() {
+    Map<String, ?> allEntries = sharedPref.getAll();
+    List<DailyDataModel> allData = new ArrayList<>();
+    for (Map.Entry<String, ?> entry : allEntries.entrySet())
+      allData.add((DailyDataModel) entry.getValue());
+    return allData;
   }
 
   public void deleteData(LocalDate startDate, LocalDate endDate) {

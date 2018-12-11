@@ -28,6 +28,10 @@ public class ExportImportService {
     objectMapper.writeValue(pathFile, dailyDataModelList);
   }
 
+  public void exportDataAll(File pathFile) throws IOException {
+    objectMapper.writeValue(pathFile, healthDataDao.getDailyDataAll());
+  }
+
   public void importData(File data) throws IOException {
 
     List<DailyDataModel> dailyDataModelList =

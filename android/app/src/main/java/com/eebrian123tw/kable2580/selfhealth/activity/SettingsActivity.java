@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth;
+package com.eebrian123tw.kable2580.selfhealth.activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.eebrian123tw.kable2580.selfhealth.R;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;

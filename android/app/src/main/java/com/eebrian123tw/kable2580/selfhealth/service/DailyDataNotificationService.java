@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth;
+package com.eebrian123tw.kable2580.selfhealth.service;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -15,6 +15,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.eebrian123tw.kable2580.selfhealth.activity.MainActivity;
+import com.eebrian123tw.kable2580.selfhealth.R;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
