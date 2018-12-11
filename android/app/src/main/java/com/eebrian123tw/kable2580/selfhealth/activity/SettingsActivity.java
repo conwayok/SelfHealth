@@ -121,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                   | InputType.TYPE_NUMBER_FLAG_SIGNED);
           edittext.setText(Integer.toString(settings.getDailyStepsGoal()));
           edittext.setSelection(edittext.getText().toString().length());
-          alert.setTitle("Enter a goal value");
+          alert.setTitle(R.string.enter_goal_value);
           alert.setView(edittext);
           alert.setPositiveButton(
               R.string.confirm,
@@ -156,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             edittext.setText(Double.toString(settings.getDailySleepHoursGoal()));
             edittext.setSelection(edittext.getText().toString().length());
 
-            alert.setTitle("Enter a goal value");
+            alert.setTitle(R.string.enter_goal_value);
             alert.setView(edittext);
             alert.setPositiveButton(
                 R.string.confirm,
@@ -192,7 +192,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     | InputType.TYPE_NUMBER_FLAG_SIGNED);
             edittext.setText(Integer.toString(settings.getDailyWaterGoal()));
             edittext.setSelection(edittext.getText().toString().length());
-            alert.setTitle("Enter a goal value");
+            alert.setTitle(R.string.enter_goal_value);
             alert.setView(edittext);
             alert.setPositiveButton(
                 R.string.confirm,
@@ -226,7 +226,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                   | InputType.TYPE_NUMBER_FLAG_SIGNED);
           edittext.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
           edittext.setSelection(edittext.getText().toString().length());
-          alert.setTitle("Enter a goal value");
+          alert.setTitle(R.string.enter_limit_value);
           alert.setView(edittext);
           alert.setPositiveButton(
               R.string.confirm,

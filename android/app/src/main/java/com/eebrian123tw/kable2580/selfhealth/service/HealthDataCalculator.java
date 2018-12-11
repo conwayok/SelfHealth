@@ -18,70 +18,88 @@ import lombok.Data;
 
 @Data
 public class HealthDataCalculator {
-  private Map<String, DailyDataModel> dailyDataModelMap;
-  private List<DailyDataModel> dailyDataModelList;
+    private Map<String, DailyDataModel> dailyDataModelMap;
+    private List<DailyDataModel> dailyDataModelList;
 
-  private LocalDate startDate;
-  private LocalDate endDate;
-  private long days;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private long days;
 
-  private HealthDataDao healthDataDao;
+    private HealthDataDao healthDataDao;
 
-  public HealthDataCalculator(Context context, LocalDate startDate, LocalDate endDate) {
-    healthDataDao = new HealthDataDao(context);
-    this.startDate = startDate;
-    this.endDate = endDate;
-    days = ChronoUnit.DAYS.between(startDate, endDate);
-    healthDataDao = new HealthDataDao(context);
-    dailyDataModelMap = new HashMap<>();
-    try {
-      dailyDataModelList = healthDataDao.getDailyData(startDate, endDate);
-      for (DailyDataModel model : dailyDataModelList)
-        this.dailyDataModelMap.put(model.getDataDate(), model);
-    } catch (IOException e) {
-      e.printStackTrace();
+    public HealthDataCalculator(Context context, LocalDate startDate, LocalDate endDate) {
+        healthDataDao = new HealthDataDao(context);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        healthDataDao = new HealthDataDao(context);
+        dailyDataModelMap = new HashMap<>();
+        try {
+            dailyDataModelList = healthDataDao.getDailyData(startDate, endDate);
+            for (DailyDataModel model : dailyDataModelList)
+                this.dailyDataModelMap.put(model.getDataDate(), model);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        days=dailyDataModelMap.size();
     }
-  }
 
-  public int getStepsForDay(LocalDate date) {
-    return Objects.requireNonNull(dailyDataModelMap.get(date)).getSteps();
-  }
+    public int getStepsForDay(LocalDate date) {
+        return Objects.requireNonNull(dailyDataModelMap.get(date)).getSteps();
+    }
 
-  public double getStepsAverage() {
-    int total = 0;
-    for (DailyDataModel dailyDataModel : dailyDataModelList) total += dailyDataModel.getSteps();
-    return total / days;
-  }
+    public int getStepsTotal() {
+        int total = 0;
+        for (DailyDataModel dailyDataModel : dailyDataModelList) total += dailyDataModel.getSteps();
+        return total;
+    }
 
-  public double getSleepHoursDay(LocalDate date) {
-    return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursOfSleep();
-  }
+    public double getStepsAverage() {
 
-  public double getSleepAverage() {
-    int total = 0;
-    for (DailyDataModel dailyDataModel : dailyDataModelList)
-      total += dailyDataModel.getHoursOfSleep();
-    return total / days;
-  }
+        return getStepsTotal() / days;
+    }
 
-  public int getWaterDay(LocalDate date) {
-    return Objects.requireNonNull(dailyDataModelMap.get(date)).getWaterCC();
-  }
+    public double getSleepHoursDay(LocalDate date) {
+        return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursOfSleep();
+    }
 
-  public double getWaterAverage() {
-    int total = 0;
-    for (DailyDataModel dailyDataModel : dailyDataModelList) total += dailyDataModel.getWaterCC();
-    return total / days;
-  }
+    public double getSleepTotal() {
+        double total = 0;
+        for (DailyDataModel dailyDataModel : dailyDataModelList)
+            total += dailyDataModel.getHoursOfSleep();
+        return total;
+    }
 
-  public double getPhoneUseDay(LocalDate date) {
-    return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursPhoneUse();
-  }
+    public double getSleepAverage() {
+        return getSleepTotal() / days;
+    }
 
-  public double getPhoneUseAverage() {
-    double total = 0;
-    for (DailyDataModel dailyDataModel : dailyDataModelList)
-      total += dailyDataModel.getHoursPhoneUse();
-    return total / days;
-  }
+    public int getWaterDay(LocalDate date) {
+        return Objects.requireNonNull(dailyDataModelMap.get(date)).getWaterCC();
+    }
+
+    public int getWaterTotal() {
+        int total = 0;
+        for (DailyDataModel dailyDataModel : dailyDataModelList)
+            total += dailyDataModel.getWaterCC();
+        return total;
+    }
+
+    public double getWaterAverage() {
+        return getWaterTotal() / days;
+    }
+
+    public double getPhoneUseDay(LocalDate date) {
+        return Objects.requireNonNull(dailyDataModelMap.get(date)).getHoursPhoneUse();
+    }
+
+    public double getPhoneUseTotal() {
+        double total = 0;
+        for (DailyDataModel dailyDataModel : dailyDataModelList)
+            total += dailyDataModel.getHoursPhoneUse();
+        return total;
+    }
+
+    public double getPhoneUseAverage() {
+        return getPhoneUseTotal() / days;
+    }
 }

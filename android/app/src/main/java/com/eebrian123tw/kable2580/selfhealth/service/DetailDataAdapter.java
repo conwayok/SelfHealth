@@ -26,7 +26,7 @@ public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.Vi
     private List<DetailDataUnit> detailData;
     private Context context;
 
-    DetailDataAdapter(Context context, List<DetailDataUnit> detailData) {
+    public DetailDataAdapter(Context context, List<DetailDataUnit> detailData) {
         this.context = context;
         this.detailData = detailData;
     }

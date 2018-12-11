@@ -33,11 +33,18 @@
     <string name="phone_use">滑手機</string>
     <string name="confirm">確認</string>
     <string name="show_notification">顯示通知</string>
+    <string name="notification_setting">顯示設定</string>
     <string name="hide_notification">不顯示通知</string>
     <string name="daily_steps_goal">每日步數目標</string>
     <string name="daily_sleep_goal">每日睡眠目標</string>
     <string name="daily_water_goal">每日飲水目標</string>
     <string name="daily_phone_use_goal">每日手機使用上限</string>
+    <string name="clear_data">清理資料</string>
+    <string name="clear_data_detail">清理設定和健康資料</string>
+    <string name="enter_goal_value">輸入目標值</string>
+    <string name="enter_limit_value">輸入下限值</string>
+    <string name="average">平均</string>
+    <string name="total">總和</string>
 
 
 </resources>
