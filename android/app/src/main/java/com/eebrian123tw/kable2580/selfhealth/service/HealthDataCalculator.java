@@ -27,6 +27,7 @@ public class HealthDataCalculator {
 
     private HealthDataDao healthDataDao;
 
+
     public HealthDataCalculator(Context context, LocalDate startDate, LocalDate endDate) {
         healthDataDao = new HealthDataDao(context);
         this.startDate = startDate;
