@@ -21,4 +21,11 @@
     <string name="drink">drink</string>
     <string name="phone_use">phone use</string>
     <string name="confirm">confirm</string>
+    <string name="show_notification">Show notification</string>
+    <string name="hide_notification">Hide notification</string>
+    <string name="daily_steps_goal">Daily steps goal</string>
+    <string name="daily_sleep_goal">Daily sleep goal</string>
+    <string name="daily_water_goal">Daily water goal</string>
+    <string name="daily_phone_use_goal">Daily phone use limit</string>
+    <string name="step_string">steps</string>
 </resources>

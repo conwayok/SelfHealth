@@ -13,7 +13,7 @@
     <string name="hour_string">小時</string>
     <string name="cc_string">毫升</string>
     <string name="zero_string">0</string>
-    <string name="step_string" translatable="false">步</string>
+    <string name="step_string">步</string>
     <string name="share_string">分享</string>
 
     <string name="version_string">v1.0</string>
@@ -32,7 +32,12 @@
     <string name="drink">飲水</string>
     <string name="phone_use">滑手機</string>
     <string name="confirm">確認</string>
-
+    <string name="show_notification">顯示通知</string>
+    <string name="hide_notification">不顯示通知</string>
+    <string name="daily_steps_goal">每日步數目標</string>
+    <string name="daily_sleep_goal">每日睡眠目標</string>
+    <string name="daily_water_goal">每日飲水目標</string>
+    <string name="daily_phone_use_goal">每日手機使用上限</string>
 
 
 </resources>

@@ -82,6 +82,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
   @Override
   public void onClick(View v) {
     switch (v.getId()) {
+        // <editor-fold defaultstate="collapsed" desc="clear data">
       case R.id.clear_data_linear_layout:
         {
           AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -106,7 +107,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
 
         break;
+        // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="steps goal">
       case R.id.steps_goal_linear_layout:
         {
           AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -115,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
               InputType.TYPE_CLASS_NUMBER
                   | InputType.TYPE_NUMBER_FLAG_DECIMAL
                   | InputType.TYPE_NUMBER_FLAG_SIGNED);
-          edittext.setText("" + settings.getDailyStepsGoal());
+          edittext.setText(Integer.toString(settings.getDailyStepsGoal()));
           edittext.setSelection(edittext.getText().toString().length());
           alert.setTitle("Enter a goal value");
           alert.setView(edittext);
@@ -136,9 +139,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
               });
           alert.show();
         }
-
         break;
+        // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="sleep goal">
       case R.id.sleep_goal_linear_layout:
         {
           {
@@ -148,7 +152,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 InputType.TYPE_CLASS_NUMBER
                     | InputType.TYPE_NUMBER_FLAG_DECIMAL
                     | InputType.TYPE_NUMBER_FLAG_SIGNED);
-            edittext.setText("" + settings.getDailySleepHoursGoal());
+            edittext.setText(Double.toString(settings.getDailySleepHoursGoal()));
             edittext.setSelection(edittext.getText().toString().length());
 
             alert.setTitle("Enter a goal value");
@@ -173,7 +177,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
           }
         }
         break;
+        // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="water goal">
       case R.id.water_goal_linear_layout:
         {
           {
@@ -183,7 +189,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 InputType.TYPE_CLASS_NUMBER
                     | InputType.TYPE_NUMBER_FLAG_DECIMAL
                     | InputType.TYPE_NUMBER_FLAG_SIGNED);
-            edittext.setText("" + settings.getDailyWaterGoal());
+            edittext.setText(Integer.toString(settings.getDailyWaterGoal()));
             edittext.setSelection(edittext.getText().toString().length());
             alert.setTitle("Enter a goal value");
             alert.setView(edittext);
@@ -206,7 +212,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
           }
         }
         break;
+        // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="phone use goal">
       case R.id.phone_use_goal_linear_layout:
         {
           AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -215,7 +223,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
               InputType.TYPE_CLASS_NUMBER
                   | InputType.TYPE_NUMBER_FLAG_DECIMAL
                   | InputType.TYPE_NUMBER_FLAG_SIGNED);
-          edittext.setText("" + settings.getDailyPhoneUseHoursGoal());
+          edittext.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
           edittext.setSelection(edittext.getText().toString().length());
           alert.setTitle("Enter a goal value");
           alert.setView(edittext);
@@ -238,6 +246,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
           alert.show();
         }
         break;
+        // </editor-fold>
     }
   }
 
@@ -246,11 +255,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     try {
       settings = settingsDao.getSettings();
       showNotificationSwitch.setChecked(settings.isShowNotification());
-      if (settings.isShowNotification()) {
-        showNotificationSwitch.setText("Show Notification");
-      } else {
-        showNotificationSwitch.setText("Hide Notification");
-      }
+      showNotificationSwitch.setText(
+          settings.isShowNotification() ? R.string.show_notification : R.string.hide_notification);
       dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
       dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
       dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
