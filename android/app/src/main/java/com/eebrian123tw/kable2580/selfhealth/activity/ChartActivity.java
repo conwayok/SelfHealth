@@ -143,10 +143,9 @@ public class ChartActivity extends AppCompatActivity {
         yLimitLine.setLineWidth(2f);
         yLimitLine.setTextSize(10f);
         lineChart.getAxisLeft().addLimitLine(yLimitLine);
-        lineChart.getAxisRight().setEnabled(true);
-        lineChart.getAxisRight().setLabelCount(0);
 
-
+        lineChart.getXAxis().setGranularity(1);
+        lineChart.getXAxis().setLabelCount(dailyDataModelList.size()>9?9:dailyDataModelList.size());
         lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
                @Override
                public String getFormattedValue(float value, AxisBase axis) {
@@ -164,8 +163,7 @@ public class ChartActivity extends AppCompatActivity {
 
 
         );
-        lineChart.getXAxis().setGranularity(1);
-        lineChart.getXAxis().setLabelCount(dailyDataModelList.size()>9?9:dailyDataModelList.size());
+
         SettingsModel settings = null;
 
         try {
