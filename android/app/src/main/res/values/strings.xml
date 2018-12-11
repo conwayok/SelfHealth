@@ -45,6 +45,8 @@
     <string name="enter_limit_value">輸入下限值</string>
     <string name="average">平均</string>
     <string name="total">總和</string>
+    <string name="goal">目標</string>
+    <string name="limit">上限</string>
 
 
 </resources>

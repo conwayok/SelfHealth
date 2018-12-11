@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.eebrian123tw.kable2580.selfhealth.R;
+import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.service.DetailDataUnit;
 import com.eebrian123tw.kable2580.selfhealth.service.HealthDataCalculator;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
+import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
@@ -22,6 +24,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import org.threeten.bp.LocalDate;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class ChartActivity extends AppCompatActivity {
     private LineChart lineChart;
     private TextView totalTextView;
     private TextView averageTextView;
+    private TextView goalTextView;
     private static final DecimalFormat decimalFormat = new DecimalFormat("#.00");
     @SuppressLint("SetTextI18n")
     @Override
@@ -40,6 +44,7 @@ public class ChartActivity extends AppCompatActivity {
         type = (DetailDataUnit.Type) getIntent().getSerializableExtra("type");
         averageTextView = findViewById(R.id.average_textView);
         totalTextView = findViewById(R.id.total_textView);
+        goalTextView = findViewById(R.id.goal_textView);
 
         lineChart = findViewById(R.id.detail_line_chart);
         lineChart.setDragEnabled(true);
@@ -142,22 +147,41 @@ public class ChartActivity extends AppCompatActivity {
            }
         );
         lineChart.getXAxis().setLabelCount(9);
+        SettingsModel settings = null;
+
+        try {
+            settings=new SettingsDao(this).getSettings();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         switch (type) {
             case STEPS:
+                if (settings != null) {
+                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailyStepsGoal());
+                }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getStepsAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + healthDataCalculator.getStepsTotal());
                 break;
             case SLEEP:
+                if (settings != null) {
+                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailySleepHoursGoal());
+                }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getSleepAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + decimalFormat.format(healthDataCalculator.getSleepTotal()));
                 break;
             case DRINK:
+                if (settings != null) {
+                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailyWaterGoal());
+                }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getWaterAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + healthDataCalculator.getWaterTotal());
                 break;
             case PHONE_USE:
+                if (settings != null) {
+                    goalTextView.setText(getText(R.string.limit)+": "+settings.getDailyPhoneUseHoursGoal());
+                }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getPhoneUseAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + decimalFormat.format(healthDataCalculator.getPhoneUseTotal()));
                 break;
