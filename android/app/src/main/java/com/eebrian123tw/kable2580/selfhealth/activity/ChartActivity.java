@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.threeten.bp.LocalDate;
 
@@ -68,7 +70,7 @@ public class ChartActivity extends AppCompatActivity {
 
         final HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, LocalDate.of(2018, 1, 1), LocalDate.now());
 
-        List<DailyDataModel> dailyDataModelList;
+        final List<DailyDataModel> dailyDataModelList;
         dailyDataModelList = healthDataCalculator.getDailyDataModelList();
 
         List<Entry> poitList = new ArrayList<>();
@@ -108,6 +110,7 @@ public class ChartActivity extends AppCompatActivity {
         dataSet.setCircleRadius(7f);
 
 
+
         LineData data = new LineData(dataSet);
         lineChart.setMaxVisibleValueCount(10);
         if (dailyDataModelList.size() >= 10) {
@@ -134,21 +137,34 @@ public class ChartActivity extends AppCompatActivity {
 
         }
         LimitLine yLimitLine = new LimitLine(average, getString(R.string.average) + ": " + average);
+        yLimitLine.enableDashedLine(10f,10f,0f);
         yLimitLine.setLineColor(Color.RED);
         yLimitLine.setTextColor(Color.BLACK);
         yLimitLine.setLineWidth(2f);
         yLimitLine.setTextSize(10f);
         lineChart.getAxisLeft().addLimitLine(yLimitLine);
+        lineChart.getAxisRight().setEnabled(true);
+        lineChart.getAxisRight().setLabelCount(0);
+
+
         lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
-                                                   @Override
-                                                   public String getFormattedValue(float value, AxisBase axis) {
-                                                       int i = (int) value;
-                                                       String date = healthDataCalculator.getDailyDataModelList().get(i).getDataDate();
-                                                       LocalDate localDate = LocalDate.parse(date);
-                                                       return localDate.getMonthValue() + "-" + localDate.getDayOfMonth();
-                                                   }
-                                               }
+               @Override
+               public String getFormattedValue(float value, AxisBase axis) {
+
+                   int index = Math.round(value);
+
+                   if (index < 0 || index >= dailyDataModelList.size() )
+                       return "";
+
+                   String date = dailyDataModelList.get(index).getDataDate();
+                   LocalDate localDate = LocalDate.parse(date);
+                   return localDate.getMonthValue() + "-" + localDate.getDayOfMonth();
+               }
+           }
+
+
         );
+        lineChart.getXAxis().setGranularity(1);
         lineChart.getXAxis().setLabelCount(dailyDataModelList.size()>9?9:dailyDataModelList.size());
         SettingsModel settings = null;
 
