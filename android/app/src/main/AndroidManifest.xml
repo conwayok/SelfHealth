@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.eebrian123tw.kable2580.selfhealth">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +29,9 @@
             android:name=".service.DailyDataNotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".service.DailyDataNotificationService" />
-        <service android:name=".service.BackgroundService" />
+        <service android:name=".service.ExampleJobService" />
 
-        <activity android:name=".activity.ChartActivity"></activity>
+        <activity android:name=".activity.ChartActivity" />
     </application>
 
 </manifest>

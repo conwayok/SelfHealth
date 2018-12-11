@@ -28,7 +28,6 @@ public class HealthDataDao {
   public void saveDailyData(DailyDataModel dailyDataModel) throws JsonProcessingException {
     SharedPreferences.Editor editor = sharedPref.edit();
     editor.putString(dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
-
     editor.apply();
   }
 
