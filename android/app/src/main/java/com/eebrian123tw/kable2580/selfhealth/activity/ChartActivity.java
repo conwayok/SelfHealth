@@ -36,6 +36,7 @@ public class ChartActivity extends AppCompatActivity {
     private TextView averageTextView;
     private TextView goalTextView;
     private static final DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,9 @@ public class ChartActivity extends AppCompatActivity {
 
         LineData data = new LineData(dataSet);
         lineChart.setMaxVisibleValueCount(10);
-        lineChart.getViewPortHandler().getMatrixTouch().postScale(5f, 1f);
+        if (dailyDataModelList.size() >= 10) {
+            lineChart.getViewPortHandler().getMatrixTouch().postScale(5f, 1f);
+        }
         lineChart.setData(data);
         lineChart.moveViewToX(dailyDataModelList.size());
 
@@ -137,20 +140,20 @@ public class ChartActivity extends AppCompatActivity {
         yLimitLine.setTextSize(10f);
         lineChart.getAxisLeft().addLimitLine(yLimitLine);
         lineChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
-                       @Override
-               public String getFormattedValue(float value, AxisBase axis) {
-                   int i = (int) value;
-                   String date=healthDataCalculator.getDailyDataModelList().get(i).getDataDate();
-                   LocalDate localDate=LocalDate.parse(date);
-                   return localDate.getMonthValue()+"-"+localDate.getDayOfMonth();
-               }
-           }
+                                                   @Override
+                                                   public String getFormattedValue(float value, AxisBase axis) {
+                                                       int i = (int) value;
+                                                       String date = healthDataCalculator.getDailyDataModelList().get(i).getDataDate();
+                                                       LocalDate localDate = LocalDate.parse(date);
+                                                       return localDate.getMonthValue() + "-" + localDate.getDayOfMonth();
+                                                   }
+                                               }
         );
-        lineChart.getXAxis().setLabelCount(9);
+        lineChart.getXAxis().setLabelCount(dailyDataModelList.size()>9?9:dailyDataModelList.size());
         SettingsModel settings = null;
 
         try {
-            settings=new SettingsDao(this).getSettings();
+            settings = new SettingsDao(this).getSettings();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,34 +162,33 @@ public class ChartActivity extends AppCompatActivity {
         switch (type) {
             case STEPS:
                 if (settings != null) {
-                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailyStepsGoal());
+                    goalTextView.setText(getText(R.string.goal) + ": " + settings.getDailyStepsGoal());
                 }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getStepsAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + healthDataCalculator.getStepsTotal());
                 break;
             case SLEEP:
                 if (settings != null) {
-                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailySleepHoursGoal());
+                    goalTextView.setText(getText(R.string.goal) + ": " + settings.getDailySleepHoursGoal());
                 }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getSleepAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + decimalFormat.format(healthDataCalculator.getSleepTotal()));
                 break;
             case DRINK:
                 if (settings != null) {
-                    goalTextView.setText(getText(R.string.goal)+": "+settings.getDailyWaterGoal());
+                    goalTextView.setText(getText(R.string.goal) + ": " + settings.getDailyWaterGoal());
                 }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getWaterAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + healthDataCalculator.getWaterTotal());
                 break;
             case PHONE_USE:
                 if (settings != null) {
-                    goalTextView.setText(getText(R.string.limit)+": "+settings.getDailyPhoneUseHoursGoal());
+                    goalTextView.setText(getText(R.string.limit) + ": " + settings.getDailyPhoneUseHoursGoal());
                 }
                 averageTextView.setText(getString(R.string.average) + ": " + decimalFormat.format(healthDataCalculator.getPhoneUseAverage()));
                 totalTextView.setText(getString(R.string.total) + ": " + decimalFormat.format(healthDataCalculator.getPhoneUseTotal()));
                 break;
         }
-
 
 
     }

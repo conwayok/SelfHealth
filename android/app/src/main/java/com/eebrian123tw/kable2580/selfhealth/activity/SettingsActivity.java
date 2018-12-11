@@ -251,6 +251,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
   }
 
+  
   @SuppressLint("SetTextI18n")
   private void setSettingsState() {
     try {
