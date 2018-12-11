@@ -28,6 +28,8 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".service.DailyDataNotificationService" />
         <service android:name=".service.BackgroundService" />
+
+        <activity android:name=".activity.ChartActivity"></activity>
     </application>
 
 </manifest>

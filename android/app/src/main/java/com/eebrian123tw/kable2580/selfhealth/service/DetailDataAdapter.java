@@ -23,12 +23,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.ViewHolder> {
+    public interface   CallBack{
+          void loadData();
+    }
     private List<DetailDataUnit> detailData;
     private Context context;
+    private CallBack callBack;
 
-    public DetailDataAdapter(Context context, List<DetailDataUnit> detailData) {
+    public DetailDataAdapter(Context context, List<DetailDataUnit> detailData,CallBack callBack) {
         this.context = context;
         this.detailData = detailData;
+        this.callBack=callBack;
     }
 
     @NonNull
@@ -73,6 +78,7 @@ public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.Vi
             @Override
             public void onClick(View v) {
                 updateData(detailDataUnit, viewHolder);
+
             }
         };
 
@@ -155,6 +161,7 @@ public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.Vi
                             break;
                     }
                     healthDataDao.saveDailyData(finalDailyDataModel);
+                    callBack.loadData();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

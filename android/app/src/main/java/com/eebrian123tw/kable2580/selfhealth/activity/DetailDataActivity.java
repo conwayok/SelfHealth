@@ -29,12 +29,13 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class DetailDataActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailDataActivity extends AppCompatActivity implements View.OnClickListener,DetailDataAdapter.CallBack {
 
     private static final String TAG = "DetailDataActivity";
     private RecyclerView detailDataRecyclerView;
@@ -43,6 +44,8 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
     private TextView totalTextView;
     private TextView averageTextView;
     private LinearLayout summaryLinearLayout;
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+     private static final DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
                 addData();
                 break;
             case R.id.summary_linearLayout:
+                Intent intent=new Intent(this,ChartActivity.class);
+                intent.putExtra("type",type);
+                startActivity(intent);
                 break;
         }
     }
@@ -187,12 +193,13 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
     }
 
     @SuppressLint("SetTextI18n")
-    private void loadData() {
+    public void loadData() {
 
-        LocalDate start = LocalDate.of(2018, 1, 1);
-        LocalDate end = LocalDate.now();
+        final LocalDate start = LocalDate.of(2018, 1, 1);
+        final LocalDate end = LocalDate.now();
         HealthDataDao healthDataDao = new HealthDataDao(this);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
+
         try {
             List<DailyDataModel> dailyDataModelList = healthDataDao.getDailyData(start, end);
             Log.i(TAG, dailyDataModelList.size() + "");
@@ -220,33 +227,35 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
 
             runOnUiThread(
                     new Runnable() {
+                        @SuppressLint("DefaultLocale")
                         @Override
                         public void run() {
                             detailDataRecyclerView.setAdapter(
-                                    new DetailDataAdapter(DetailDataActivity.this, detailData));
+                                    new DetailDataAdapter(DetailDataActivity.this, detailData,DetailDataActivity.this));
+
+                            switch (type) {
+                                case STEPS:
+                                    averageTextView.setText(getString(R.string.average)+": " +  decimalFormat.format(healthDataCalculator.getStepsAverage()));
+                                    totalTextView.setText(getString(R.string.total)+": " + healthDataCalculator.getStepsTotal());
+                                    break;
+                                case SLEEP:
+                                    averageTextView.setText(getString(R.string.average)+": " + decimalFormat.format(healthDataCalculator.getSleepAverage()));
+                                    totalTextView.setText(getString(R.string.total) +": "+ decimalFormat.format(healthDataCalculator.getSleepTotal()));
+                                    break;
+                                case DRINK:
+                                    averageTextView.setText(getString(R.string.average)+": " + decimalFormat.format(healthDataCalculator.getWaterAverage()));
+                                    totalTextView.setText(getString(R.string.total) +": "+ healthDataCalculator.getWaterTotal());
+                                    break;
+                                case PHONE_USE:
+                                    averageTextView.setText(getString(R.string.average) +": "+decimalFormat.format( healthDataCalculator.getPhoneUseAverage()));
+                                    totalTextView.setText(getString(R.string.total)+": " + decimalFormat.format(healthDataCalculator.getPhoneUseTotal()));
+                                    break;
+                            }
+
                         }
                     });
 
-            HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
 
-            switch (type) {
-                case STEPS:
-                    averageTextView.setText(getString(R.string.average)+": " + healthDataCalculator.getStepsAverage());
-                    totalTextView.setText(getString(R.string.total)+": " + healthDataCalculator.getStepsTotal());
-                    break;
-                case SLEEP:
-                    averageTextView.setText(getString(R.string.average)+": " + healthDataCalculator.getSleepAverage());
-                    totalTextView.setText(getString(R.string.total) +": "+ healthDataCalculator.getSleepTotal());
-                    break;
-                case DRINK:
-                    averageTextView.setText(getString(R.string.average)+": " + healthDataCalculator.getWaterAverage());
-                    totalTextView.setText(getString(R.string.total) +": "+ healthDataCalculator.getWaterTotal());
-                    break;
-                case PHONE_USE:
-                    averageTextView.setText(getString(R.string.average) +": "+ healthDataCalculator.getPhoneUseAverage());
-                    totalTextView.setText(getString(R.string.total)+": " + healthDataCalculator.getPhoneUseTotal());
-                    break;
-            }
 
 
 
