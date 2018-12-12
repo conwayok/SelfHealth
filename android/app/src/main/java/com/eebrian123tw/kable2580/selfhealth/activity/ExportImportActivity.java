@@ -15,8 +15,6 @@ import com.eebrian123tw.kable2580.selfhealth.R;
 import com.eebrian123tw.kable2580.selfhealth.service.ExportImportService;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
-import org.threeten.bp.LocalDate;
-
 import java.io.File;
 import java.io.IOException;
 

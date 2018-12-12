@@ -1,12 +1,10 @@
 package com.eebrian123tw.kable2580.selfhealth.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
