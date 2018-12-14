@@ -60,8 +60,13 @@ public class HealthDataDao {
   public List<DailyDataModel> getDailyDataAll() {
     Map<String, ?> allEntries = sharedPref.getAll();
     List<DailyDataModel> allData = new ArrayList<>();
-    for (Map.Entry<String, ?> entry : allEntries.entrySet())
-      allData.add((DailyDataModel) entry.getValue());
+    for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+      try {
+        allData.add((objectMapper.readValue((String)entry.getValue(), DailyDataModel.class)));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
     return allData;
   }
 
