@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth.workers;
+package com.eebrian123tw.kable2580.selfhealth.workerManager;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
