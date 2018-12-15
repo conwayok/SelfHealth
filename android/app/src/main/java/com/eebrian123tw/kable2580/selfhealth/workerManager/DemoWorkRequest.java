@@ -8,11 +8,11 @@ import androidx.work.WorkManager;
 public class DemoWorkRequest {
 
   public static void main(String[] args) {
-    Constraints constraints = new Constraints.Builder().setRequiresDeviceIdle(true).build();
+//    Constraints constraints = new Constraints.Builder().setRequiresDeviceIdle(true).build();
 
-    PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(DemoWorker.class).build();
+//    PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(ScreenOffWorker.class).build();
 
 //        OneTimeWorkRequest workRequest = new
-//     OneTimeWorkRequest.Builder(DemoWorker.class).setConstraints().build();
+//     OneTimeWorkRequest.Builder(ScreenOffWorker.class).setConstraints().build();
   }
 }
