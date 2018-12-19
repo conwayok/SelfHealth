@@ -20,12 +20,17 @@ import com.eebrian123tw.kable2580.selfhealth.service.DailyDataNotificationServic
 import com.eebrian123tw.kable2580.selfhealth.service.DetailDataUnit;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
+import com.eebrian123tw.kable2580.selfhealth.workerManager.IdleWorker;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
 import java.util.List;
+
+import androidx.work.Constraints;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import static com.eebrian123tw.kable2580.selfhealth.R.id;
 import static com.eebrian123tw.kable2580.selfhealth.R.layout.activity_main;
@@ -262,5 +267,15 @@ public class MainActivity extends AppCompatActivity
       }
     }
     return false;
+  }
+
+  private void initWorkers() {
+    Constraints constraints = new Constraints.Builder().setRequiresDeviceIdle(true).build();
+
+    WorkManager.getInstance()
+        .enqueue(
+            new OneTimeWorkRequest.Builder(IdleWorker.class)
+                .setConstraints(constraints)
+                .build());
   }
 }

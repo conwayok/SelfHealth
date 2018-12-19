@@ -11,24 +11,23 @@ import org.threeten.bp.LocalDateTime;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-public class ScreenOffWorker extends Worker {
+public class IdleWorker extends Worker {
 
-  private static final String TAG = "ScreenOffWorker";
+  private static final String TAG = "IdleWorker";
 
-
-  public ScreenOffWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+  public IdleWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
     super(context, workerParams);
   }
 
   @NonNull
   @Override
   public Result doWork() {
+    // this code is run if device is idle
     IdleStateDao idleStateDao = new IdleStateDao(getApplicationContext());
     idleStateDao.setState("idle");
     idleStateDao.setStartTime(LocalDateTime.now());
-
     Log.i(TAG, LocalDateTime.now().toString());
-
+    Log.d(TAG, "IdleWorker doing work");
     return Worker.Result.success();
   }
 }
