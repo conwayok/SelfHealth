@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="5dp"
                 tools:layout_editor_absoluteX="209dp"
@@ -68,6 +68,126 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.2dp"
+                android:background="@android:color/darker_gray"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="209dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect_google_fit"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="48dp"
+                    tools:layout_editor_absoluteY="32dp" />
+
+                <Switch
+                    android:id="@+id/connect_google_fit_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disconnected_google_fit"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="32dp"
+                    tools:layout_editor_absoluteY="52dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/darker_gray"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/height_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="190dp">
+
+                <TextView
+                    android:id="@+id/height_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="287dp" />
+
+                <TextView
+                    android:id="@+id/height_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="174dp"
+                    tools:layout_editor_absoluteY="287dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@android:color/darker_gray"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/weight_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="190dp">
+
+                <TextView
+                    android:id="@+id/weight_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="40dp"
+                    tools:layout_editor_absoluteY="287dp" />
+
+                <TextView
+                    android:id="@+id/weight_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="174dp"
+                    tools:layout_editor_absoluteY="287dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@android:color/darker_gray"
                 android:orientation="vertical">
 

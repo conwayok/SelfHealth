@@ -48,5 +48,11 @@
     <string name="goal">目標</string>
     <string name="limit">上限</string>
 
+    <string name="connect_google_fit">綁定google fit</string>
+    <string name="connected_google_fit">已綁定</string>
+    <string name="disconnected_google_fit">未綁定</string>
+    <string name="height">身高</string>
+    <string name="weight">體重</string>
+
 
 </resources>

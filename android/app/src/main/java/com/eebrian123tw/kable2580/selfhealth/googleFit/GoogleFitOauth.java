@@ -1,26 +1,11 @@
 package com.eebrian123tw.kable2580.selfhealth.googleFit;
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.data.Value;
-import com.google.android.gms.fitness.request.DataSourcesRequest;
-import com.google.android.gms.fitness.request.OnDataPointListener;
-import com.google.android.gms.fitness.request.SensorRequest;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class GoogleFitOauth {
     public static final int REQUEST_GOOLE_FIT_OAUTH_REQUEST_CODE = 1001;
@@ -55,7 +40,7 @@ public class GoogleFitOauth {
     }
 
     public static void disconnectGoogleFit(Activity activity) {
-        Fitness.getConfigClient(activity, GoogleSignIn.getLastSignedInAccount(activity)).disableFit();
+         Fitness.getConfigClient(activity, GoogleSignIn.getLastSignedInAccount(activity)).disableFit();
     }
 
 
