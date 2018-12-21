@@ -198,8 +198,22 @@ public class MainActivity extends AppCompatActivity
       e.printStackTrace();
     }
 
+    try {
+
+      DailyDataModel yesterday=healthDataDao.getDailyDataSingle(LocalDate.now().minusDays(1));
+      if(yesterday!=null){
+        sleepButton.setText(yesterday.getHoursOfSleep() + getString(hour_string));
+      }else {
+        sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(hour_string));
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
+      sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(hour_string));
+    }
+
     stepButton.setText(dailyDataModel.getSteps() + getString(step_string));
-    sleepButton.setText(dailyDataModel.getHoursOfSleep() + getString(hour_string));
+
     drinkButton.setText(dailyDataModel.getWaterCC() + getString(cc_string));
     usePhoneButton.setText(dailyDataModel.getHoursPhoneUse() + getString(hour_string));
   }
