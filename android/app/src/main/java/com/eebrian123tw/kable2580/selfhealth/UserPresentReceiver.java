@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.eebrian123tw.kable2580.selfhealth.workerManager.ScreenOffWorker;
 import com.eebrian123tw.kable2580.selfhealth.workerManager.UserPresentWorker;
 
 import androidx.work.OneTimeWorkRequest;
@@ -23,6 +24,8 @@ public class UserPresentReceiver extends BroadcastReceiver {
           .enqueue(new OneTimeWorkRequest.Builder(UserPresentWorker.class).build());
     } else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
       Log.d(SCREEN_TOGGLE_TAG, "Screen off");
+      WorkManager.getInstance()
+          .enqueue(new OneTimeWorkRequest.Builder(ScreenOffWorker.class).build());
     } else {
       Log.d(SCREEN_TOGGLE_TAG, "else");
     }

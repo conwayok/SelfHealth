@@ -33,10 +33,10 @@
         <activity android:name=".activity.ChartActivity" />
 
         <receiver android:name=".UserPresentReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
                 <!--<action android:name="android.intent.action.SCREEN_OFF" />-->
-            </intent-filter>
+            <!--</intent-filter>-->
         </receiver>
     </application>
 

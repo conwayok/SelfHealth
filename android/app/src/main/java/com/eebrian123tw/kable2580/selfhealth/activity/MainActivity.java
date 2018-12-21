@@ -27,8 +27,6 @@ import org.threeten.bp.LocalDate;
 import java.io.IOException;
 import java.util.List;
 
-import androidx.work.PeriodicWorkRequest;
-
 import static com.eebrian123tw.kable2580.selfhealth.R.id;
 import static com.eebrian123tw.kable2580.selfhealth.R.layout.activity_main;
 import static com.eebrian123tw.kable2580.selfhealth.R.string.app_name;

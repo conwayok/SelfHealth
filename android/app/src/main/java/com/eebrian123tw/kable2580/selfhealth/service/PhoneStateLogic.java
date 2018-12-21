@@ -46,16 +46,17 @@ public class PhoneStateLogic {
   private void checkSleep(LocalDateTime prev, LocalDateTime current) {
     Log.d(LOG_TAG, "checkSleep");
 
-    double idleHours = calcHoursInBetween(prev, current);
+    double screenOffHours = calcHoursInBetween(prev, current);
 
-    // if phone is idle for 2 hours, assume user was sleeping
-    if (idleHours > 2) {
+    // if phone screen is off for more than 2 hours, assume user was sleeping
+    // todo: change 0 back to 2
+    if (screenOffHours > 0) {
       try {
         // add sleep time to today's sleep time
         DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
         double todaySleepHours = today.getHoursOfSleep();
-        Log.d(LOG_TAG, "User was sleeping for " + idleHours);
-        today.setHoursOfSleep(todaySleepHours + idleHours);
+        Log.d(LOG_TAG, "User was sleeping for " + screenOffHours);
+        today.setHoursOfSleep(todaySleepHours + screenOffHours);
         healthDataDao.saveDailyData(today);
       } catch (IOException e) {
         e.printStackTrace();
@@ -70,7 +71,9 @@ public class PhoneStateLogic {
       DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
       double todayPhoneUse = today.getHoursPhoneUse();
       double phoneUseHours = calcHoursInBetween(prev, current);
+      Log.d(LOG_TAG, "Phone use + " + phoneUseHours);
       today.setHoursPhoneUse(todayPhoneUse + phoneUseHours);
+      healthDataDao.saveDailyData(today);
     } catch (IOException e) {
       e.printStackTrace();
     }
