@@ -128,7 +128,6 @@ public class DailyDataNotificationService extends Service {
                             @Override
                             public void onSuccess(DataReadResponse dataReadResponse) {
                                 List<DataSet> datasets=history.getDataSets(dataReadResponse);
-                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                                 for(DataSet dataSet:datasets){
                                     for (DataPoint dp : dataSet.getDataPoints()) {
                                         if(dp.getDataType().equals(DataType.AGGREGATE_STEP_COUNT_DELTA)){

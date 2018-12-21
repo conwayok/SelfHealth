@@ -21,7 +21,9 @@ import android.widget.Toast;
 import com.eebrian123tw.kable2580.selfhealth.R;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
+import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitHistory;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitOauth;
+import com.eebrian123tw.kable2580.selfhealth.service.DailyDataNotificationService;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -310,6 +312,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                             Double.parseDouble(edittext.getText().toString()));
                                     settingsDao.saveSettings(settings);
                                     setSettingsState();
+                                    SettingsModel settingsModel=settingsDao.getSettings();
+                                    if (GoogleFitOauth.hasOauth(SettingsActivity.this) && settingsModel.isConnectedToGoogleFit()) {
+                                        float weight= (float) settingsModel.getWeight();
+                                        if(weight!=0){
+                                            GoogleFitHistory.saveUserWeight(SettingsActivity.this,weight);
+                                        }
+
+
+                                    }
+
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -343,6 +356,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                             Double.parseDouble(edittext.getText().toString()));
                                     settingsDao.saveSettings(settings);
                                     setSettingsState();
+                                    SettingsModel settingsModel=settingsDao.getSettings();
+                                    if (GoogleFitOauth.hasOauth(SettingsActivity.this) && settingsModel.isConnectedToGoogleFit()) {
+                                        float weight= (float) settingsModel.getWeight();
+                                        if(weight!=0){
+                                            GoogleFitHistory.saveUserWeight(SettingsActivity.this,weight);
+                                        }
+
+
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -374,7 +396,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             heightTextView.setText(Double.toString(settings.getHeight()));
             weightTextView.setText(Double.toString(settings.getWeight()));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
