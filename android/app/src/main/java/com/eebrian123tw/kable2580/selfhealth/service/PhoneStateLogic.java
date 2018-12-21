@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.eebrian123tw.kable2580.selfhealth.config.Config.PhoneState;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
-import com.eebrian123tw.kable2580.selfhealth.dao.IdleStateDao;
+import com.eebrian123tw.kable2580.selfhealth.dao.PhoneStateDao;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDateTime;
@@ -15,23 +15,23 @@ import java.io.IOException;
 
 public class PhoneStateLogic {
   private static final String LOG_TAG = "PhoneStateLogic";
-  private IdleStateDao idleStateDao;
+  private PhoneStateDao phoneStateDao;
   private HealthDataDao healthDataDao;
 
   public PhoneStateLogic(Context context) {
-    idleStateDao = new IdleStateDao(context);
+    phoneStateDao = new PhoneStateDao(context);
     healthDataDao = new HealthDataDao(context);
   }
 
   // pass in the current time to determine if user was sleeping or using phone...etc
   public void handlePhoneState(PhoneState currentState, LocalDateTime newStartTime) {
-    PhoneState prevState = idleStateDao.getState();
+    PhoneState prevState = phoneStateDao.getState();
 
     // only set changes when current state is different
     if (prevState != currentState) {
-      LocalDateTime prevStartTime = idleStateDao.getStartTime();
-      idleStateDao.setState(currentState);
-      idleStateDao.setStartTime(newStartTime);
+      LocalDateTime prevStartTime = phoneStateDao.getStartTime();
+      phoneStateDao.setState(currentState);
+      phoneStateDao.setStartTime(newStartTime);
 
       // if user turns off screen after using phone
       if (prevState == PhoneState.ACTIVE && currentState == PhoneState.SCREEN_OFF)

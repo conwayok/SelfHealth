@@ -5,7 +5,7 @@
 //import android.util.Log;
 //
 //import com.eebrian123tw.kable2580.selfhealth.config.Config;
-//import com.eebrian123tw.kable2580.selfhealth.dao.IdleStateDao;
+//import com.eebrian123tw.kable2580.selfhealth.dao.PhoneStateDao;
 //
 //import org.threeten.bp.LocalDateTime;
 //
@@ -25,7 +25,7 @@
 //  public Result doWork() {
 //    // this code is run if device is idle
 //    LocalDateTime now = LocalDateTime.now();
-//    IdleStateDao idleStateDao = new IdleStateDao(getApplicationContext());
+//    PhoneStateDao idleStateDao = new PhoneStateDao(getApplicationContext());
 //
 //    // if device becomes idle, set state to idle and start time to now
 //    Log.i(TAG, "Setting device state to idle");

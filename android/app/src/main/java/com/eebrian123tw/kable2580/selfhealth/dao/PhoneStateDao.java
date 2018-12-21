@@ -3,21 +3,17 @@ package com.eebrian123tw.kable2580.selfhealth.dao;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.eebrian123tw.kable2580.selfhealth.config.Config;
-
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.Objects;
 
 import static com.eebrian123tw.kable2580.selfhealth.config.Config.IDLE_TIME;
-
 import static com.eebrian123tw.kable2580.selfhealth.config.Config.PhoneState;
 
-public class IdleStateDao {
+public class PhoneStateDao {
   private SharedPreferences sharedPref;
 
-  public IdleStateDao(Context context) {
+  public PhoneStateDao(Context context) {
     sharedPref = context.getSharedPreferences(IDLE_TIME, Context.MODE_PRIVATE);
   }
 
