@@ -20,20 +20,23 @@ import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.ViewHolder> {
-    public interface   CallBack{
-          void loadData();
+
+    public interface CallBack {
+        void loadData();
     }
+
     private List<DetailDataUnit> detailData;
     private Context context;
     private CallBack callBack;
 
-    public DetailDataAdapter(Context context, List<DetailDataUnit> detailData,CallBack callBack) {
+    public DetailDataAdapter(Context context, List<DetailDataUnit> detailData, CallBack callBack) {
         this.context = context;
         this.detailData = detailData;
-        this.callBack=callBack;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -49,40 +52,53 @@ public class DetailDataAdapter extends RecyclerView.Adapter<DetailDataAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final DetailDataUnit detailDataUnit = detailData.get(i);
         LocalDate localDate = detailDataUnit.getDataTime();
-        DetailDataUnit.Type type = detailDataUnit.getType();
+        final DetailDataUnit.Type type = detailDataUnit.getType();
         String stringType;
+        double value = detailDataUnit.getValue();
+        DecimalFormat formatter = new DecimalFormat("#.###");
+        formatter.applyPattern("0.000");
         switch (type) {
             case STEPS:
                 stringType = context.getString(R.string.step);
+                viewHolder.valueTextView.setText(String.valueOf(value));
                 break;
             case DRINK:
                 stringType = context.getString(R.string.drink);
+                viewHolder.valueTextView.setText(String.valueOf(value));
                 break;
             case SLEEP:
                 stringType = context.getString(R.string.sleep);
+                viewHolder.valueTextView.setText(formatter.format(value));
+
                 break;
             case PHONE_USE:
                 stringType = context.getString(R.string.phone_use);
+                viewHolder.valueTextView.setText(formatter.format(value));
                 break;
             default:
                 stringType = context.getString(R.string.step);
+                viewHolder.valueTextView.setText(String.valueOf(value));
+
 
         }
 
         viewHolder.dataTypeTextView.setText(stringType);
 
-        viewHolder.valueTextView.setText(String.valueOf(detailDataUnit.getValue()));
+
         viewHolder.dataTimeTextView.setText(localDate.toString());
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateData(detailDataUnit, viewHolder);
-
             }
         };
 
         viewHolder.itemView.setOnClickListener(clickListener);
+        switch (type){
+            case STEPS:
+                viewHolder.itemView.setClickable(false);
+        }
 
     }
 

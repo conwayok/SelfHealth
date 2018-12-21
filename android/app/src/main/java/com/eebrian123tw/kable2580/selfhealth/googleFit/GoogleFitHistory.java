@@ -1,6 +1,7 @@
 package com.eebrian123tw.kable2580.selfhealth.googleFit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -15,20 +16,20 @@ import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.result.DataReadResponse;
 import com.google.android.gms.tasks.Task;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.text.DateFormat;
 
 public class GoogleFitHistory {
-    private Activity activity;
+    private Context context;
     public static final String TAG = "GoogleFitHistoryApi";
 
-    public GoogleFitHistory(Activity activity) {
-        this.activity = activity;
+    public GoogleFitHistory(Context context) {
+        this.context = context;
     }
 
     private DataReadRequest queryFitnessData(long startTime, long endTime, int timeUnitSize, TimeUnit timeUnit) {
@@ -49,7 +50,7 @@ public class GoogleFitHistory {
     public Task<DataReadResponse> readHistoryData(long startTime, long endTime, int timeUnitSize, TimeUnit timeUnit) {
         DataReadRequest readRequest = this.queryFitnessData(startTime, endTime, timeUnitSize, timeUnit);
 
-        Task<DataReadResponse> task = Fitness.getHistoryClient(activity, GoogleSignIn.getLastSignedInAccount(activity))
+        Task<DataReadResponse> task = Fitness.getHistoryClient(context, GoogleSignIn.getLastSignedInAccount(context))
                 .readData(readRequest);
         return task;
     }
@@ -79,7 +80,7 @@ public class GoogleFitHistory {
                     if (dataSet.getDataPoints().size() != 0) {
                         dataSets.add(dataSet);
                     }
-                   dumpDataSet(dataSet);
+                    dumpDataSet(dataSet);
                 }
             }
         } else if (dataReadResult.getDataSets().size() > 0) {

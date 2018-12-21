@@ -11,6 +11,7 @@
     <string name="today_use_phone_string">今日滑手機</string>
 
     <string name="hour_string">小時</string>
+    <string name="minute_string">分鐘</string>
     <string name="cc_string">毫升</string>
     <string name="zero_string">0</string>
     <string name="step_string">步</string>

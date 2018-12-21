@@ -196,6 +196,19 @@ public class DetailDataActivity extends AppCompatActivity implements View.OnClic
 
     @SuppressLint("SetTextI18n")
     public void loadData() {
+        switch (type){
+            case DRINK:
+                break;
+            case SLEEP:
+                break;
+            case STEPS:
+                addButton.setVisibility(View.INVISIBLE);
+                break;
+            case PHONE_USE:
+                break;
+
+        }
+
 
         final LocalDate start = LocalDate.of(2018, 1, 1);
         final LocalDate end = LocalDate.now();

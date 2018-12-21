@@ -87,9 +87,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         phoneUseGoalLinearLayout.setOnClickListener(this);
         heightLinearLayout.setOnClickListener(this);
         weightLinearLayout.setOnClickListener(this);
-
         setSettingsState();
-
         showNotificationSwitch.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
