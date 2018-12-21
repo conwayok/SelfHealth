@@ -2,6 +2,7 @@ package com.eebrian123tw.kable2580.selfhealth.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +20,7 @@ import static com.eebrian123tw.kable2580.selfhealth.config.Config.DAILY_DATA;
 public class HealthDataDao {
   private ObjectMapper objectMapper;
   private SharedPreferences sharedPref;
+  private static final String LOG_TAG = "HealthDataDao";
 
   public HealthDataDao(Context context) {
     objectMapper = new ObjectMapper();
@@ -62,12 +64,23 @@ public class HealthDataDao {
     List<DailyDataModel> allData = new ArrayList<>();
     for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
       try {
-        allData.add((objectMapper.readValue((String)entry.getValue(), DailyDataModel.class)));
+        allData.add((objectMapper.readValue((String) entry.getValue(), DailyDataModel.class)));
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
     return allData;
+  }
+
+  public DailyDataModel getDailyDataSingle(LocalDate date) throws IOException {
+    String dataString = sharedPref.getString(date.toString(), "");
+
+    if (!dataString.isEmpty()) {
+      return objectMapper.readValue(dataString, DailyDataModel.class);
+    } else {
+      Log.d(LOG_TAG, "data for date " + date + " is null");
+      return null;
+    }
   }
 
   public void deleteData(LocalDate startDate, LocalDate endDate) {

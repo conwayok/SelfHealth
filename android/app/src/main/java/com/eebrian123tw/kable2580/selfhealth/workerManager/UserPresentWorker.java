@@ -4,7 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.eebrian123tw.kable2580.selfhealth.service.IdleLogic;
+import com.eebrian123tw.kable2580.selfhealth.config.Config;
+import com.eebrian123tw.kable2580.selfhealth.service.PhoneStateLogic;
 
 import org.threeten.bp.LocalDateTime;
 
@@ -22,10 +23,11 @@ public class UserPresentWorker extends Worker {
   @Override
   public Result doWork() {
     Log.d(TAG, "UserPresentWorker doWork");
-
-    LocalDateTime current = LocalDateTime.now().withNano(0);
-    IdleLogic idleLogic = new IdleLogic(getApplicationContext());
-    idleLogic.handlePhoneState("active", current);
+    LocalDateTime now = LocalDateTime.now();
+    PhoneStateLogic phoneStateLogic = new PhoneStateLogic(getApplicationContext());
+    phoneStateLogic.handlePhoneState(Config.PhoneState.ACTIVE, now);
+    Log.i(TAG, "Setting phone state to " + Config.PhoneState.ACTIVE.name());
+    Log.i(TAG, "Current time: " + now);
     return Worker.Result.success();
   }
 }

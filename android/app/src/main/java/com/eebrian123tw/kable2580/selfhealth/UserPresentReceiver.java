@@ -10,7 +10,7 @@ import com.eebrian123tw.kable2580.selfhealth.workerManager.UserPresentWorker;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-public class UserPresentReciever extends BroadcastReceiver {
+public class UserPresentReceiver extends BroadcastReceiver {
 
   private static final String SCREEN_TOGGLE_TAG = "SCREEN_TOGGLE_TAG";
 
@@ -21,6 +21,8 @@ public class UserPresentReciever extends BroadcastReceiver {
       Log.d(SCREEN_TOGGLE_TAG, "User present");
       WorkManager.getInstance()
           .enqueue(new OneTimeWorkRequest.Builder(UserPresentWorker.class).build());
+    } else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
+      Log.d(SCREEN_TOGGLE_TAG, "Screen off");
     } else {
       Log.d(SCREEN_TOGGLE_TAG, "else");
     }

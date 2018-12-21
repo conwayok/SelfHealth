@@ -9,4 +9,7 @@ public class SettingsModel {
   private double dailySleepHoursGoal;
   private double dailyPhoneUseHoursGoal;
   private int dailyWaterGoal;
+  private double weight;
+  private double height;
+  private int age;
 }

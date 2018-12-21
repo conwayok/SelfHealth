@@ -3,12 +3,16 @@ package com.eebrian123tw.kable2580.selfhealth.dao;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.eebrian123tw.kable2580.selfhealth.config.Config;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.Objects;
 
 import static com.eebrian123tw.kable2580.selfhealth.config.Config.IDLE_TIME;
+
+import static com.eebrian123tw.kable2580.selfhealth.config.Config.PhoneState;
 
 public class IdleStateDao {
   private SharedPreferences sharedPref;
@@ -17,12 +21,14 @@ public class IdleStateDao {
     sharedPref = context.getSharedPreferences(IDLE_TIME, Context.MODE_PRIVATE);
   }
 
-  public void setState(String state) {
-    sharedPref.edit().putString("state", state).apply();
+  public void setState(PhoneState state) {
+    sharedPref.edit().putString("state", state.name()).apply();
   }
 
-  public String getState() {
-    return sharedPref.getString("state", "notIdle");
+  public PhoneState getState() {
+    return sharedPref.getString("state", PhoneState.ACTIVE.name()).equals(PhoneState.ACTIVE.name())
+        ? PhoneState.ACTIVE
+        : PhoneState.SCREEN_OFF;
   }
 
   public void setStartTime(LocalDateTime startTime) {
@@ -32,8 +38,7 @@ public class IdleStateDao {
   public LocalDateTime getStartTime() {
     String startTimeString = sharedPref.getString("startTime", "");
     if (!Objects.requireNonNull(startTimeString).isEmpty()) {
-      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd Hh-mm:ss");
-      return LocalDateTime.parse(startTimeString, dateTimeFormatter);
+      return LocalDateTime.parse(startTimeString);
     } else {
       return LocalDateTime.now();
     }
