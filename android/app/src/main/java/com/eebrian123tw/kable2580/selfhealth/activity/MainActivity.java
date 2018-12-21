@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
 
     // initialize time zone information
     AndroidThreeTen.init(this);
-    queueWork();
 
     shareButton = findViewById(id.share_button);
     exportImportButton = findViewById(id.export_import_button);
@@ -263,12 +262,5 @@ public class MainActivity extends AppCompatActivity
       }
     }
     return false;
-  }
-
-  private void queueWork() {
-
-//    PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder()
-//    WorkManager.getInstance()
-//        .enqueue(new OneTimeWorkRequest.Builder(RegisterReceiverWorker.class).build());
   }
 }
