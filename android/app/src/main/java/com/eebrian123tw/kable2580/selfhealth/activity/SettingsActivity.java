@@ -85,6 +85,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         sleepGoalLinearLayout.setOnClickListener(this);
         waterGoalLinearLayout.setOnClickListener(this);
         phoneUseGoalLinearLayout.setOnClickListener(this);
+        heightLinearLayout.setOnClickListener(this);
+        weightLinearLayout.setOnClickListener(this);
 
         setSettingsState();
 
@@ -105,11 +107,18 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         connectGoogleFitSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (GoogleFitOauth.hasOauth(SettingsActivity.this)) {
-                    GoogleFitOauth.disconnectGoogleFit(SettingsActivity.this);
+
+                try {
+                    settings.setConnectedToGoogleFit(isChecked);
+                    settingsDao.saveSettings(settings);
+                    if(isChecked){
+                        GoogleFitOauth.oauthRequest(SettingsActivity.this);
+                    }else {
+                        GoogleFitOauth.disconnectGoogleFit(SettingsActivity.this);
+                    }
                     setSettingsState();
-                } else {
-                    GoogleFitOauth.oauthRequest(SettingsActivity.this);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -279,6 +288,72 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
             break;
             // </editor-fold>
+
+            // <editor-fold defaultstate="collapsed" desc="height">
+            case R.id.height_linear_layout: {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                final EditText edittext = new EditText(this);
+                edittext.setInputType(
+                        InputType.TYPE_CLASS_NUMBER
+                                | InputType.TYPE_NUMBER_FLAG_DECIMAL
+                                | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                edittext.setText(Double.toString(settings.getHeight()));
+                edittext.setSelection(edittext.getText().toString().length());
+                alert.setTitle(R.string.height);
+                alert.setView(edittext);
+                alert.setPositiveButton(
+                        R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                try {
+                                    settings.setHeight(
+                                            Double.parseDouble(edittext.getText().toString()));
+                                    settingsDao.saveSettings(settings);
+                                    setSettingsState();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                alert.show();
+            }
+            break;
+            // </editor-fold>
+
+            // <editor-fold defaultstate="collapsed" desc="weight">
+            case R.id.weight_linear_layout: {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                final EditText edittext = new EditText(this);
+                edittext.setInputType(
+                        InputType.TYPE_CLASS_NUMBER
+                                | InputType.TYPE_NUMBER_FLAG_DECIMAL
+                                | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                edittext.setText(Double.toString(settings.getWeight()));
+                edittext.setSelection(edittext.getText().toString().length());
+                alert.setTitle(R.string.weight);
+                alert.setView(edittext);
+                alert.setPositiveButton(
+                        R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                try {
+                                    settings.setWeight(
+                                            Double.parseDouble(edittext.getText().toString()));
+                                    settingsDao.saveSettings(settings);
+                                    setSettingsState();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                alert.show();
+            }
+            break;
+            // </editor-fold>
         }
     }
 
@@ -295,9 +370,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
             dailyWaterGoal.setText(Integer.toString(settings.getDailyWaterGoal()));
 
-            boolean hasOauth=GoogleFitOauth.hasOauth(this);
-            connectGoogleFitSwitch.setChecked(hasOauth);
+
+            connectGoogleFitSwitch.setChecked(settings.isConnectedToGoogleFit());
             connectGoogleFitSwitch.setText(connectGoogleFitSwitch.isChecked()?R.string.connected_google_fit:R.string.disconnected_google_fit);
+
+            heightTextView.setText(Double.toString(settings.getHeight()));
+            weightTextView.setText(Double.toString(settings.getWeight()));
 
         } catch (IOException e) {
             e.printStackTrace();
