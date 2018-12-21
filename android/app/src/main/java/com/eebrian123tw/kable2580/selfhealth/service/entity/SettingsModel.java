@@ -12,4 +12,5 @@ public class SettingsModel {
   private double weight;
   private double height;
   private int age;
+  private boolean connectedToGoogleFit;
 }

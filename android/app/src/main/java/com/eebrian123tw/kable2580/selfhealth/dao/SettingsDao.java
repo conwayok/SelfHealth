@@ -37,6 +37,7 @@ public class SettingsDao {
       settingsModel.setDailySleepHoursGoal(8);
       settingsModel.setDailyPhoneUseHoursGoal(4);
       settingsModel.setDailyWaterGoal(3000);
+      settingsModel.setConnectedToGoogleFit(false);
       return settingsModel;
     }
   }
