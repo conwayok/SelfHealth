@@ -196,7 +196,7 @@ public class DailyDataNotificationService extends Service {
     NotificationManager notificationManager =
         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notification_daily_data);
-
+    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
     try {
       boolean warn = false;
       SettingsModel settingsModel = settingsDao.getSettings();
@@ -212,7 +212,7 @@ public class DailyDataNotificationService extends Service {
       } else {
         remoteViews.setTextColor(R.id.notification_drink_textview, Color.BLACK);
       }
-      if (dailyDataModel.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
+      if (yesterday.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
         remoteViews.setTextColor(R.id.notification_sleep_textview, Color.RED);
         warn = true;
       } else {
@@ -236,7 +236,7 @@ public class DailyDataNotificationService extends Service {
     DecimalFormat formatter = new DecimalFormat("#.#");
     formatter.applyPattern("0.0");
 
-    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
+
     double hoursOfSleep = 0;
 
     if (yesterday != null) {

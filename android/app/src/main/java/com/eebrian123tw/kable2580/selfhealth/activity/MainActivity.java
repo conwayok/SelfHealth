@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity
     showDailyData();
 
     if (!isThisServiceRunning(DailyDataNotificationService.class)) {
-      Toast.makeText(this, "start service", Toast.LENGTH_SHORT).show();
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         startForegroundService(new Intent(this, DailyDataNotificationService.class));
       } else {
@@ -158,6 +157,7 @@ public class MainActivity extends AppCompatActivity
 
   @SuppressLint("SetTextI18n")
   private void showDailyData() {
+    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
     try {
       SettingsModel settingsModel = settingsDao.getSettings();
 
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
       } else {
         drinkButton.setTextColor(Color.GREEN);
       }
-      if (dailyDataModel.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
+      if (yesterday.getHoursOfSleep() < settingsModel.getDailySleepHoursGoal()) {
         sleepButton.setTextColor(Color.RED);
       } else {
         sleepButton.setTextColor(Color.GREEN);
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
 
     DecimalFormat formatter = new DecimalFormat("#.#");
 
-    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
+
     double hoursOfSleep = 0;
 
     if (yesterday != null) {
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
       sleepButton.setText(formatter.format(hoursOfSleep) + getString(hour_string));
     }
 
-    sleepButton.setText("0" + getString(hour_string));
+//    sleepButton.setText("0" + getString(hour_string));
 
     stepButton.setText(dailyDataModel.getSteps() + getString(step_string));
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -385,6 +386,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             showNotificationSwitch.setChecked(settings.isShowNotification());
             showNotificationSwitch.setText(
                     settings.isShowNotification() ? R.string.show_notification : R.string.hide_notification);
+
+            showNotificationSwitch.setTextColor(showNotificationSwitch.isChecked()? Color.BLACK:Color.GRAY);
             dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
             dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
             dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
@@ -393,6 +396,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             connectGoogleFitSwitch.setChecked(settings.isConnectedToGoogleFit());
             connectGoogleFitSwitch.setText(connectGoogleFitSwitch.isChecked()?R.string.connected_google_fit:R.string.disconnected_google_fit);
+            connectGoogleFitSwitch.setTextColor(connectGoogleFitSwitch.isChecked()? Color.BLACK:Color.GRAY);
 
             heightTextView.setText(Double.toString(settings.getHeight()));
             weightTextView.setText(Double.toString(settings.getWeight()));
