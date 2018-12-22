@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.eebrian123tw.kable2580.selfhealth.workerManager.ScreenOffWorker;
-import com.eebrian123tw.kable2580.selfhealth.workerManager.UserPresentWorker;
+import com.eebrian123tw.kable2580.selfhealth.worker.ScreenOffWorker;
+import com.eebrian123tw.kable2580.selfhealth.worker.UserPresentWorker;
 
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;

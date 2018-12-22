@@ -326,7 +326,7 @@ public class DailyDataNotificationService extends Service {
       if (settingsDao.getSettings().isShowNotification()) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           startForeground(notificationId, notificationBuilder.build());
-          //                notificationManager.notify(notificationId, notificationBuilder.build());
+          // notificationManager.notify(notificationId, notificationBuilder.build());
         } else if (notificationManager != null) {
           notificationManager.notify(notificationId, notificationBuilder.build());
         }
@@ -335,7 +335,7 @@ public class DailyDataNotificationService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           startForeground(notificationId, notificationBuilder.build());
           stopForeground(true);
-          //                notificationManager.notify(notificationId, notificationBuilder.build());
+          // notificationManager.notify(notificationId, notificationBuilder.build());
         } else if (notificationManager != null) {
           notificationManager.cancel(notificationId);
         }

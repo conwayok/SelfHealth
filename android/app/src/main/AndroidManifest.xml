@@ -29,7 +29,6 @@
             android:name=".service.DailyDataNotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".service.DailyDataNotificationService" />
-        <service android:name=".service.ExampleJobService" />
 
         <activity android:name=".activity.ChartActivity" />
 
