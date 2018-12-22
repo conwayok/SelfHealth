@@ -49,8 +49,7 @@ public class PhoneStateLogic {
     double screenOffHours = calcHoursInBetween(prev, current);
 
     // if phone screen is off for more than 2 hours, assume user was sleeping
-    // todo: change 0 back to 2
-    if (screenOffHours > 0) {
+    if (screenOffHours > 2) {
       try {
         // add sleep time to today's sleep time
         DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
