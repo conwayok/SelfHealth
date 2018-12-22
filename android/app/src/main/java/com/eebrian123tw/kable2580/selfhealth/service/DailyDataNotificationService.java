@@ -38,9 +38,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -166,7 +164,7 @@ public class DailyDataNotificationService extends Service {
             }
         };
 
-        timer.schedule(steps,0,60*1000);
+        timer.schedule(steps,0,3*60*1000);
 
 
         return START_NOT_STICKY;

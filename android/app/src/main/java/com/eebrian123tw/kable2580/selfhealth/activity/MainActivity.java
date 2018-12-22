@@ -204,15 +204,15 @@ public class MainActivity extends AppCompatActivity
         try {
 
             DailyDataModel yesterday = healthDataDao.getDailyDataSingle(LocalDate.now().minusDays(1));
-            double hoursOfSleep=0;
+            double hoursOfSleep = 0;
 
             if (yesterday != null) {
                 hoursOfSleep = yesterday.getHoursOfSleep();
             }
             if (hoursOfSleep < 1) {
-                hoursOfSleep*=60;
+                hoursOfSleep *= 60;
                 sleepButton.setText(formatter.format(hoursOfSleep) + getString(minute_string));
-            }else {
+            } else {
                 sleepButton.setText(formatter.format(hoursOfSleep) + getString(hour_string));
             }
 
@@ -227,10 +227,10 @@ public class MainActivity extends AppCompatActivity
 
         drinkButton.setText(dailyDataModel.getWaterCC() + getString(cc_string));
         double hoursPhoneUse = dailyDataModel.getHoursPhoneUse();
-        if(hoursPhoneUse<1){
-            hoursPhoneUse*=60;
+        if (hoursPhoneUse < 1) {
+            hoursPhoneUse *= 60;
             usePhoneButton.setText(formatter.format(hoursPhoneUse) + getString(minute_string));
-        }else {
+        } else {
             usePhoneButton.setText(formatter.format(hoursPhoneUse) + getString(hour_string));
         }
 
@@ -238,6 +238,41 @@ public class MainActivity extends AppCompatActivity
     }
 
     private String parseDailyDataToString() {
+
+        DecimalFormat formatter = new DecimalFormat("#.#");
+        double hoursOfSleep = 0;
+        String hourOFSleepString = "";
+        try {
+
+            DailyDataModel yesterday = healthDataDao.getDailyDataSingle(LocalDate.now().minusDays(1));
+
+
+            if (yesterday != null) {
+                hoursOfSleep = yesterday.getHoursOfSleep();
+            }
+            if (hoursOfSleep < 1) {
+                hoursOfSleep *= 60;
+                hourOFSleepString = formatter.format(hoursOfSleep) + getString(minute_string);
+            } else {
+                hourOFSleepString = formatter.format(hoursOfSleep) + getString(hour_string);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            hourOFSleepString = "0" + getString(hour_string);
+        }
+
+
+        double hoursPhoneUse = dailyDataModel.getHoursPhoneUse();
+        String  hoursPhoneUseString ;
+        if (hoursPhoneUse < 1) {
+            hoursPhoneUse *= 60;
+            hoursPhoneUseString=formatter.format(hoursPhoneUse) + getString(minute_string);
+        } else {
+            hoursPhoneUseString=formatter.format(hoursPhoneUse) + getString(hour_string);
+        }
+
 
         return getString(my_today_status)
                 + '\n'
@@ -248,8 +283,7 @@ public class MainActivity extends AppCompatActivity
                 + '\n'
                 + getString(yesterday_sleep_string)
                 + ": "
-                + dailyDataModel.getHoursOfSleep()
-                + getString(hour_string)
+                + hourOFSleepString
                 + '\n'
                 + getString(today_drink_string)
                 + ": "
@@ -258,8 +292,7 @@ public class MainActivity extends AppCompatActivity
                 + '\n'
                 + getString(today_use_phone_string)
                 + ": "
-                + dailyDataModel.getHoursPhoneUse()
-                + getString(hour_string);
+                +hoursPhoneUseString;
     }
 
     @Override
