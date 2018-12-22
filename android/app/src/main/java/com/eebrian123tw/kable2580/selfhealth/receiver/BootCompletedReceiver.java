@@ -1,4 +1,4 @@
-package com.eebrian123tw.kable2580.selfhealth;
+package com.eebrian123tw.kable2580.selfhealth.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

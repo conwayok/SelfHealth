@@ -33,14 +33,14 @@
 
         <activity android:name=".activity.ChartActivity" />
 
-        <receiver android:name=".UserPresentReceiver">
+        <receiver android:name=".receiver.UserPresentReceiver">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.USER_PRESENT" />-->
                 <!--<action android:name="android.intent.action.SCREEN_OFF" />-->
             <!--</intent-filter>-->
         </receiver>
 
-        <receiver android:name=".BootCompletedReceiver">
+        <receiver android:name=".receiver.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

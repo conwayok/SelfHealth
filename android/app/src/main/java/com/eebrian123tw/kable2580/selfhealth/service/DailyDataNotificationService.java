@@ -17,7 +17,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.eebrian123tw.kable2580.selfhealth.R;
-import com.eebrian123tw.kable2580.selfhealth.UserPresentReceiver;
+import com.eebrian123tw.kable2580.selfhealth.receiver.UserPresentReceiver;
 import com.eebrian123tw.kable2580.selfhealth.activity.MainActivity;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
