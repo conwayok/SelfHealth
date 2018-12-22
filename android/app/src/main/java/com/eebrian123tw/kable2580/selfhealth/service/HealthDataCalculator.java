@@ -32,13 +32,9 @@ public class HealthDataCalculator {
     this.endDate = endDate;
     healthDataDao = new HealthDataDao(context);
     dailyDataModelMap = new HashMap<>();
-    try {
-      dailyDataModelList = healthDataDao.getDailyData(startDate, endDate);
-      for (DailyDataModel model : dailyDataModelList)
-        this.dailyDataModelMap.put(model.getDataDate(), model);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    dailyDataModelList = healthDataDao.getDailyData(startDate, endDate);
+    for (DailyDataModel model : dailyDataModelList)
+      this.dailyDataModelMap.put(model.getDataDate(), model);
     days = dailyDataModelMap.size();
   }
 

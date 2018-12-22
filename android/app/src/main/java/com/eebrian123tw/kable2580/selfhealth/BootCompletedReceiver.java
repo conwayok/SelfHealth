@@ -13,11 +13,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
   public void onReceive(Context context, Intent intent) {
     if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
       Toast.makeText(context, "start service after boot", Toast.LENGTH_SHORT).show();
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         context.startForegroundService(new Intent(context, DailyDataNotificationService.class));
-      } else {
-        context.startService(new Intent(context, DailyDataNotificationService.class));
-      }
+      else context.startService(new Intent(context, DailyDataNotificationService.class));
     }
   }
 }

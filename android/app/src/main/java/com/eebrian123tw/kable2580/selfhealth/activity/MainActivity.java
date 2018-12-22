@@ -26,7 +26,6 @@ import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.List;
 
 import static com.eebrian123tw.kable2580.selfhealth.R.id;
 import static com.eebrian123tw.kable2580.selfhealth.R.layout.activity_main;
@@ -89,27 +88,16 @@ public class MainActivity extends AppCompatActivity
 
     settingsDao = new SettingsDao(this);
 
-    try {
-      healthDataDao = new HealthDataDao(MainActivity.this);
-      List<DailyDataModel> dailyDataModelList =
-          healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
-      if (dailyDataModelList.size() == 0) {
-        dailyDataModel = new DailyDataModel();
-        dailyDataModel.setDataDate(LocalDate.now().toString());
-        healthDataDao.saveDailyData(dailyDataModel);
-      } else {
-        dailyDataModel = dailyDataModelList.get(0);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    healthDataDao = new HealthDataDao(MainActivity.this);
+//    DailyDataModel dailyDataModel = healthDataDao.getDailyData(LocalDate.now());
+    dailyDataModel = healthDataDao.getDailyData(LocalDate.now());
+    healthDataDao.saveDailyData(dailyDataModel);
 
     showDailyData();
 
     if (!isThisServiceRunning(DailyDataNotificationService.class)) {
       Toast.makeText(this, "start service", Toast.LENGTH_SHORT).show();
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        //                startService(new Intent(this, DailyDataNotificationService.class));
         startForegroundService(new Intent(this, DailyDataNotificationService.class));
       } else {
         startService(new Intent(this, DailyDataNotificationService.class));
@@ -201,25 +189,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     DecimalFormat formatter = new DecimalFormat("#.#");
-    try {
 
-      DailyDataModel yesterday = healthDataDao.getDailyDataSingle(LocalDate.now().minusDays(1));
-      double hoursOfSleep = 0;
+    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
+    double hoursOfSleep = 0;
 
-      if (yesterday != null) {
-        hoursOfSleep = yesterday.getHoursOfSleep();
-      }
-      if (hoursOfSleep < 1) {
-        hoursOfSleep *= 60;
-        sleepButton.setText(formatter.format(hoursOfSleep) + getString(minute_string));
-      } else {
-        sleepButton.setText(formatter.format(hoursOfSleep) + getString(hour_string));
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      sleepButton.setText("0" + getString(hour_string));
+    if (yesterday != null) {
+      hoursOfSleep = yesterday.getHoursOfSleep();
     }
+    if (hoursOfSleep < 1) {
+      hoursOfSleep *= 60;
+      sleepButton.setText(formatter.format(hoursOfSleep) + getString(minute_string));
+    } else {
+      sleepButton.setText(formatter.format(hoursOfSleep) + getString(hour_string));
+    }
+
+    sleepButton.setText("0" + getString(hour_string));
 
     stepButton.setText(dailyDataModel.getSteps() + getString(step_string));
 
@@ -237,24 +221,16 @@ public class MainActivity extends AppCompatActivity
 
     DecimalFormat formatter = new DecimalFormat("#.#");
     double hoursOfSleep = 0;
-    String hourOFSleepString = "";
-    try {
-
-      DailyDataModel yesterday = healthDataDao.getDailyDataSingle(LocalDate.now().minusDays(1));
-
-      if (yesterday != null) {
-        hoursOfSleep = yesterday.getHoursOfSleep();
-      }
-      if (hoursOfSleep < 1) {
-        hoursOfSleep *= 60;
-        hourOFSleepString = formatter.format(hoursOfSleep) + getString(minute_string);
-      } else {
-        hourOFSleepString = formatter.format(hoursOfSleep) + getString(hour_string);
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      hourOFSleepString = "0" + getString(hour_string);
+    String hourOFSleepString;
+    DailyDataModel yesterday = healthDataDao.getDailyData(LocalDate.now().minusDays(1));
+    if (yesterday != null) {
+      hoursOfSleep = yesterday.getHoursOfSleep();
+    }
+    if (hoursOfSleep < 1) {
+      hoursOfSleep *= 60;
+      hourOFSleepString = formatter.format(hoursOfSleep) + getString(minute_string);
+    } else {
+      hourOFSleepString = formatter.format(hoursOfSleep) + getString(hour_string);
     }
 
     double hoursPhoneUse = dailyDataModel.getHoursPhoneUse();
@@ -293,15 +269,8 @@ public class MainActivity extends AppCompatActivity
         new Runnable() {
           @Override
           public void run() {
-            try {
-              healthDataDao = new HealthDataDao(MainActivity.this);
-              List<DailyDataModel> dailyDataModelList =
-                  healthDataDao.getDailyData(LocalDate.now(), LocalDate.now());
-              dailyDataModel = dailyDataModelList.get(0);
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-
+            healthDataDao = new HealthDataDao(MainActivity.this);
+            dailyDataModel = healthDataDao.getDailyData(LocalDate.now());
             showDailyData();
             swipeRefreshLayout.setRefreshing(false);
           }

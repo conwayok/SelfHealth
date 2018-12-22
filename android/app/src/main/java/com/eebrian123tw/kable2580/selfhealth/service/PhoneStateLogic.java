@@ -11,8 +11,6 @@ import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 
-import java.io.IOException;
-
 import static com.eebrian123tw.kable2580.selfhealth.config.Config.MAX_SCREEN_OFF_TIME_BEFORE_SLEEP;
 
 public class PhoneStateLogic {
@@ -52,32 +50,24 @@ public class PhoneStateLogic {
 
     // if phone screen is off for more than 2 hours, assume user was sleeping
     if (screenOffHours > MAX_SCREEN_OFF_TIME_BEFORE_SLEEP) {
-      try {
-        // add sleep time to today's sleep time
-        DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
-        double todaySleepHours = today.getHoursOfSleep();
-        Log.d(LOG_TAG, "User was sleeping for " + screenOffHours);
-        today.setHoursOfSleep(todaySleepHours + screenOffHours);
-        healthDataDao.saveDailyData(today);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      // add sleep time to today's sleep time
+      DailyDataModel today = healthDataDao.getDailyData(prev.toLocalDate());
+      double todaySleepHours = today.getHoursOfSleep();
+      Log.d(LOG_TAG, "User was sleeping for " + screenOffHours);
+      today.setHoursOfSleep(todaySleepHours + screenOffHours);
+      healthDataDao.saveDailyData(today);
     }
   }
 
   private void checkPhoneUse(LocalDateTime prev, LocalDateTime current) {
     Log.d(LOG_TAG, "checkPhoneUse");
 
-    try {
-      DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
-      double todayPhoneUse = today.getHoursPhoneUse();
-      double phoneUseHours = calcHoursInBetween(prev, current);
-      Log.d(LOG_TAG, "Phone use + " + phoneUseHours);
-      today.setHoursPhoneUse(todayPhoneUse + phoneUseHours);
-      healthDataDao.saveDailyData(today);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    DailyDataModel today = healthDataDao.getDailyData(prev.toLocalDate());
+    double todayPhoneUse = today.getHoursPhoneUse();
+    double phoneUseHours = calcHoursInBetween(prev, current);
+    Log.d(LOG_TAG, "Phone use + " + phoneUseHours);
+    today.setHoursPhoneUse(todayPhoneUse + phoneUseHours);
+    healthDataDao.saveDailyData(today);
   }
 
   private double calcHoursInBetween(LocalDateTime prev, LocalDateTime current) {

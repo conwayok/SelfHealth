@@ -27,32 +27,52 @@ public class HealthDataDao {
     sharedPref = context.getSharedPreferences(DAILY_DATA, Context.MODE_PRIVATE);
   }
 
-  public void saveDailyData(DailyDataModel dailyDataModel) throws JsonProcessingException {
+  public void saveDailyData(DailyDataModel dailyDataModel) {
+    Log.d(LOG_TAG, "saveDailyData " + dailyDataModel.getDataDate());
     SharedPreferences.Editor editor = sharedPref.edit();
-    editor.putString(dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
-    editor.apply();
-  }
-
-  public void saveDailyData(List<DailyDataModel> dailyDataModelList)
-      throws JsonProcessingException {
-    SharedPreferences.Editor editor = sharedPref.edit();
-
-    for (DailyDataModel dailyDataModel : dailyDataModelList) {
+    try {
       editor.putString(
           dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
+      editor.apply();
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void saveDailyData(List<DailyDataModel> dailyDataModelList) {
+    Log.d(LOG_TAG, "saveDailyData List size: " + dailyDataModelList.size());
+
+    SharedPreferences.Editor editor = sharedPref.edit();
+    for (DailyDataModel dailyDataModel : dailyDataModelList) {
+      try {
+        editor.putString(
+            dailyDataModel.getDataDate(), objectMapper.writeValueAsString(dailyDataModel));
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+      }
     }
 
     editor.apply();
   }
 
-  public List<DailyDataModel> getDailyData(LocalDate startDate, LocalDate endDate)
-      throws IOException {
+  public List<DailyDataModel> getDailyData(LocalDate startDate, LocalDate endDate) {
+    Log.d(
+        LOG_TAG,
+        "getDailyData from startDate "
+            + startDate.toString()
+            + " to endDate "
+            + endDate.toString());
     List<DailyDataModel> dailyDataModelList = new ArrayList<>();
     LocalDate localDate = startDate.plusDays(0);
     while (!localDate.equals(endDate.plusDays(1))) {
       String jsonString = sharedPref.getString(localDate.toString(), "");
-      if (!jsonString.isEmpty())
-        dailyDataModelList.add(objectMapper.readValue(jsonString, DailyDataModel.class));
+      if (!jsonString.isEmpty()) {
+        try {
+          dailyDataModelList.add(objectMapper.readValue(jsonString, DailyDataModel.class));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
       localDate = localDate.plusDays(1);
     }
 
@@ -72,18 +92,32 @@ public class HealthDataDao {
     return allData;
   }
 
-  public DailyDataModel getDailyDataSingle(LocalDate date) throws IOException {
-    String dataString = sharedPref.getString(date.toString(), "");
-
+  public DailyDataModel getDailyData(LocalDate date) {
+    String dateString = date.toString();
+    Log.d(LOG_TAG, "getDailyData " + dateString);
+    String dataString = sharedPref.getString(dateString, "");
     if (!dataString.isEmpty()) {
-      return objectMapper.readValue(dataString, DailyDataModel.class);
-    } else {
-      Log.d(LOG_TAG, "data for date " + date + " is null");
-      return null;
+      try {
+        return objectMapper.readValue(dataString, DailyDataModel.class);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+    Log.d(LOG_TAG, "data for date " + date + " is null");
+    Log.d(LOG_TAG, "Creating empty DailyDataModel");
+    DailyDataModel dailyDataModel = new DailyDataModel();
+    dailyDataModel.setDataDate(date.toString());
+    saveDailyData(dailyDataModel);
+    return dailyDataModel;
   }
 
   public void deleteData(LocalDate startDate, LocalDate endDate) {
+    Log.d(
+        LOG_TAG,
+        "deleteData from start date "
+            + startDate.toString()
+            + " to end date "
+            + endDate.toString());
     SharedPreferences.Editor editor = sharedPref.edit();
     if (startDate.equals(LocalDate.MIN) && endDate.equals(LocalDate.MAX)) {
       // delete ALL data
@@ -99,6 +133,7 @@ public class HealthDataDao {
   }
 
   public void deleteDataAll() {
+    Log.d(LOG_TAG, "deleteDataAll");
     SharedPreferences.Editor editor = sharedPref.edit();
     // delete ALL data
     editor.clear().apply();
