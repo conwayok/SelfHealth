@@ -6,6 +6,7 @@ public class Config {
   public static final String DAILY_DATA = "DailyData";
   public static final String SETTINGS = "Settings";
   public static final String IDLE_TIME = "IdleTime";
+  public static final double MAX_SCREEN_OFF_TIME_BEFORE_SLEEP = 2;
 
   public enum PhoneState implements Serializable {
     ACTIVE,

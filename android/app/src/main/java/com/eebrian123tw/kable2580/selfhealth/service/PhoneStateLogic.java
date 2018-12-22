@@ -13,6 +13,8 @@ import org.threeten.bp.ZoneId;
 
 import java.io.IOException;
 
+import static com.eebrian123tw.kable2580.selfhealth.config.Config.MAX_SCREEN_OFF_TIME_BEFORE_SLEEP;
+
 public class PhoneStateLogic {
   private static final String LOG_TAG = "PhoneStateLogic";
   private PhoneStateDao phoneStateDao;
@@ -49,7 +51,7 @@ public class PhoneStateLogic {
     double screenOffHours = calcHoursInBetween(prev, current);
 
     // if phone screen is off for more than 2 hours, assume user was sleeping
-    if (screenOffHours > 2) {
+    if (screenOffHours > MAX_SCREEN_OFF_TIME_BEFORE_SLEEP) {
       try {
         // add sleep time to today's sleep time
         DailyDataModel today = healthDataDao.getDailyDataSingle(prev.toLocalDate());
