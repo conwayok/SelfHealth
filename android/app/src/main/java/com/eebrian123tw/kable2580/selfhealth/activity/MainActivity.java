@@ -12,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
@@ -44,9 +45,9 @@ import static com.eebrian123tw.kable2580.selfhealth.R.string.yesterday_sleep_str
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-  private Button shareButton;
-  private Button exportImportButton;
-  private Button settingsButton;
+  private ImageButton shareButton;
+  private ImageButton exportImportButton;
+  private ImageButton settingsButton;
 
   private Button stepButton;
   private Button sleepButton;
