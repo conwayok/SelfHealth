@@ -24,6 +24,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="75dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorCardView"
         app:layout_constraintBottom_toTopOf="@+id/goal_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
