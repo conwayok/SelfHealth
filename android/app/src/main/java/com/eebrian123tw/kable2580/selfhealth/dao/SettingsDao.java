@@ -38,6 +38,8 @@ public class SettingsDao {
       settingsModel.setDailyPhoneUseHoursGoal(4);
       settingsModel.setDailyWaterGoal(3000);
       settingsModel.setConnectedToGoogleFit(false);
+      settingsModel.setShowNotification(true);
+      saveSettings(settingsModel);
       return settingsModel;
     }
   }

@@ -196,7 +196,7 @@ public class DetailDataActivity extends AppCompatActivity
         break;
     }
 
-    final LocalDate start = LocalDate.of(2018, 1, 1);
+    final LocalDate start = LocalDate.now().withMonth(1).withDayOfMonth(1);
     final LocalDate end = LocalDate.now();
     final HealthDataCalculator healthDataCalculator = new HealthDataCalculator(this, start, end);
 
