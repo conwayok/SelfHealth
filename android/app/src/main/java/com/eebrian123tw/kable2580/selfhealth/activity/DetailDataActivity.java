@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class DetailDataActivity extends AppCompatActivity
 
   private static final String TAG = "DetailDataActivity";
   private RecyclerView detailDataRecyclerView;
-  private Button addButton;
+  private ImageButton addButton;
   private DetailDataUnit.Type type;
   private TextView totalTextView;
   private TextView averageTextView;
