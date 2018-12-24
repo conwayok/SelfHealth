@@ -41,5 +41,7 @@ dependencies {
     implementation group: 'android.arch.work', name: 'work-runtime', version: '1.0.0-beta01'
     implementation 'com.google.android.gms:play-services-fitness:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-
+    // https://mvnrepository.com/artifact/com.jakewharton/butterknife
+    implementation group: 'com.jakewharton', name: 'butterknife', version: '8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

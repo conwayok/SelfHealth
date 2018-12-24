@@ -29,12 +29,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ChartActivity extends AppCompatActivity {
     public DetailDataUnit.Type type;
-    private LineChart lineChart;
-    private TextView totalTextView;
-    private TextView averageTextView;
-    private TextView goalTextView;
+    @BindView(R.id.detail_line_chart) LineChart lineChart;
+    @BindView(R.id.total_textView)  TextView totalTextView;
+    @BindView(R.id.average_textView) TextView averageTextView;
+    @BindView(R.id.goal_textView) TextView goalTextView;
     private static final DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     @SuppressLint("SetTextI18n")
@@ -42,12 +45,10 @@ public class ChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        ButterKnife.bind(this);
         type = (DetailDataUnit.Type) getIntent().getSerializableExtra("type");
-        averageTextView = findViewById(R.id.average_textView);
-        totalTextView = findViewById(R.id.total_textView);
-        goalTextView = findViewById(R.id.goal_textView);
 
-        lineChart = findViewById(R.id.detail_line_chart);
+
         lineChart.setDragEnabled(true);
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setTouchEnabled(true);

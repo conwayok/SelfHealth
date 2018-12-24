@@ -28,6 +28,9 @@ import org.threeten.bp.LocalDate;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.eebrian123tw.kable2580.selfhealth.R.id;
 import static com.eebrian123tw.kable2580.selfhealth.R.layout.activity_main;
 import static com.eebrian123tw.kable2580.selfhealth.R.string.app_name;
@@ -45,16 +48,14 @@ import static com.eebrian123tw.kable2580.selfhealth.R.string.yesterday_sleep_str
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-  private ImageButton shareButton;
-  private ImageButton exportImportButton;
-  private ImageButton settingsButton;
-
-  private Button stepButton;
-  private Button sleepButton;
-  private Button drinkButton;
-  private Button usePhoneButton;
-
-  private SwipeRefreshLayout swipeRefreshLayout;
+  @BindView(id.share_button) ImageButton shareButton;
+  @BindView(id.export_import_button) ImageButton exportImportButton;
+  @BindView(id.settings_button) ImageButton settingsButton;
+  @BindView(id.step_button) Button stepButton;
+  @BindView(id.sleep_button) Button sleepButton;
+  @BindView(id.drink_button) Button drinkButton;
+  @BindView(id.use_phone_button) Button usePhoneButton;
+  @BindView(id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
 
   private Handler handler;
   private DailyDataModel dailyDataModel;
@@ -68,15 +69,7 @@ public class MainActivity extends AppCompatActivity
 
     // initialize time zone information
     AndroidThreeTen.init(this);
-
-    shareButton = findViewById(id.share_button);
-    exportImportButton = findViewById(id.export_import_button);
-    stepButton = findViewById(id.step_button);
-    sleepButton = findViewById(id.sleep_button);
-    drinkButton = findViewById(id.drink_button);
-    usePhoneButton = findViewById(id.use_phone_button);
-    swipeRefreshLayout = findViewById(id.swipe_refresh_layout);
-    settingsButton = findViewById(id.settings_button);
+    ButterKnife.bind(this);
 
     shareButton.setOnClickListener(this);
     exportImportButton.setOnClickListener(this);

@@ -35,31 +35,28 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailDataActivity extends AppCompatActivity
     implements View.OnClickListener, DetailDataAdapter.CallBack {
 
   private static final String TAG = "DetailDataActivity";
-  private RecyclerView detailDataRecyclerView;
-  private ImageButton addButton;
-  private DetailDataUnit.Type type;
-  private TextView totalTextView;
-  private TextView averageTextView;
-  private LinearLayout summaryLinearLayout;
+  @BindView(R.id.datail_data_recyclerview) RecyclerView detailDataRecyclerView;
+  @BindView(R.id.add_button) ImageButton addButton;
+  @BindView(R.id.total_textView) TextView totalTextView;
+  @BindView(R.id.average_textView) TextView averageTextView;
+  @BindView(R.id.summary_linearLayout) LinearLayout summaryLinearLayout;
   private static final DateTimeFormatter dateTimeFormatter =
       DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final DecimalFormat decimalFormat = new DecimalFormat("#.00");
-
+  private DetailDataUnit.Type type;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_data);
+    ButterKnife.bind(this);
 
-    addButton = findViewById(R.id.add_button);
-    totalTextView = findViewById(R.id.total_textView);
-    averageTextView = findViewById(R.id.average_textView);
-    summaryLinearLayout = findViewById(R.id.summary_linearLayout);
-
-    detailDataRecyclerView = findViewById(R.id.datail_data_recyclerview);
     detailDataRecyclerView.setLayoutManager(
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 

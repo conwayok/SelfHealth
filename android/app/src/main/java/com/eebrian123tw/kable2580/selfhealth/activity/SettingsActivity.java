@@ -32,54 +32,39 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
-  private Switch showNotificationSwitch;
-  private Switch connectGoogleFitSwitch;
+  @BindView(R.id.show_notifications_switch) Switch showNotificationSwitch;
+  @BindView(R.id.connect_google_fit_switch) Switch connectGoogleFitSwitch;
 
-  private TextView dailyStepsGoal;
-  private TextView dailySleepGoal;
-  private TextView dailyPhoneUseGoal;
-  private TextView dailyWaterGoal;
+  @BindView(R.id.daily_steps_goal_num) TextView dailyStepsGoal;
+  @BindView(R.id.daily_sleep_goal_num) TextView dailySleepGoal;
+  @BindView(R.id.daily_phone_use_goal_num) TextView dailyPhoneUseGoal;
+  @BindView(R.id.daily_water_goal_num) TextView dailyWaterGoal;
 
-  private TextView heightTextView;
-  private TextView weightTextView;
+  @BindView(R.id.height_num) TextView heightTextView;
+  @BindView(R.id.weight_num) TextView weightTextView;
+
+
+  @BindView(R.id.steps_goal_linear_layout) LinearLayout stepsGoalLinearLayout;
+  @BindView(R.id.sleep_goal_linear_layout) LinearLayout sleepGoalLinearLayout;
+  @BindView(R.id.water_goal_linear_layout) LinearLayout waterGoalLinearLayout;
+  @BindView(R.id.phone_use_goal_linear_layout) LinearLayout phoneUseGoalLinearLayout;
+  @BindView(R.id.clear_data_linear_layout) LinearLayout clearDataLinearLayout;
+
+  @BindView(R.id.height_linear_layout) LinearLayout heightLinearLayout;
+  @BindView(R.id.weight_linear_layout) LinearLayout weightLinearLayout;
 
   private SettingsDao settingsDao;
   private SettingsModel settings;
-  private LinearLayout stepsGoalLinearLayout;
-  private LinearLayout sleepGoalLinearLayout;
-  private LinearLayout waterGoalLinearLayout;
-  private LinearLayout phoneUseGoalLinearLayout;
-  private LinearLayout clearDataLinearLayout;
-
-  private LinearLayout heightLinearLayout;
-  private LinearLayout weightLinearLayout;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
-
-    showNotificationSwitch = findViewById(R.id.show_notifications_switch);
-    connectGoogleFitSwitch = findViewById(R.id.connect_google_fit_switch);
-    dailyStepsGoal = findViewById(R.id.daily_steps_goal_num);
-    dailySleepGoal = findViewById(R.id.daily_sleep_goal_num);
-    dailyPhoneUseGoal = findViewById(R.id.daily_phone_use_goal_num);
-    dailyWaterGoal = findViewById(R.id.daily_water_goal_num);
-
-    weightTextView = findViewById(R.id.weight_num);
-    heightTextView = findViewById(R.id.height_num);
-
-    clearDataLinearLayout = findViewById(R.id.clear_data_linear_layout);
-
-    heightLinearLayout = findViewById(R.id.height_linear_layout);
-    weightLinearLayout = findViewById(R.id.weight_linear_layout);
-
-    stepsGoalLinearLayout = findViewById(R.id.steps_goal_linear_layout);
-    sleepGoalLinearLayout = findViewById(R.id.sleep_goal_linear_layout);
-    waterGoalLinearLayout = findViewById(R.id.water_goal_linear_layout);
-    phoneUseGoalLinearLayout = findViewById(R.id.phone_use_goal_linear_layout);
+    ButterKnife.bind(this);
 
     settingsDao = new SettingsDao(this);
 

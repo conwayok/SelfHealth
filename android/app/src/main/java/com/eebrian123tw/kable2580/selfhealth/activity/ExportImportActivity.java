@@ -18,12 +18,15 @@ import com.obsez.android.lib.filechooser.ChooserDialog;
 import java.io.File;
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ExportImportActivity extends AppCompatActivity
     implements View.OnClickListener, View.OnTouchListener {
 
-  private Button exportButton;
-  private Button importButton;
-  private TextView
+  @BindView(R.id.export_button) Button exportButton;
+  @BindView(R.id.import_button) Button importButton;
+  @BindView(R.id.file_name_textview) TextView
       fileNameTextView; // https://stackoverflow.com/questions/7856959/android-file-chooser
   private static final String TAG = "ExportImportActivity";
 
@@ -32,13 +35,9 @@ public class ExportImportActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_export_import);
-    exportButton = findViewById(R.id.export_button);
-    importButton = findViewById(R.id.import_button);
-    fileNameTextView = findViewById(R.id.file_name_textview);
-
+    ButterKnife.bind(this);
     exportButton.setOnClickListener(this);
     importButton.setOnClickListener(this);
-
     fileNameTextView.setOnTouchListener(this);
   }
 
