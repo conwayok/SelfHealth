@@ -21,4 +21,26 @@
     <string name="drink">饮水</string>
     <string name="phone_use">滑手机</string>
     <string name="confirm">确认</string>
+    <string name="show_notification">显示通知</string>
+    <string name="hide_notification">不显示通知</string>
+    <string name="daily_steps_goal">每日步数目标</string>
+    <string name="daily_sleep_goal">每日睡眠目标</string>
+    <string name="daily_water_goal">每日饮水目标</string>
+    <string name="daily_phone_use_goal">每日手机使用上限</string>
+    <string name="step_string">步</string>
+    <string name="minute_string">分钟</string>
+    <string name="notification_setting">显示设定</string>
+    <string name="clear_data">清理资料</string>
+    <string name="clear_data_detail">清理设定和健康资料</string>
+    <string name="enter_goal_value">输入目标值</string>
+    <string name="enter_limit_value">输入上限值</string>
+    <string name="average">平均</string>
+    <string name="total">总和</string>
+    <string name="goal">目标</string>
+    <string name="limit">上限</string>
+    <string name="connect_google_fit">綁定google fit</string>
+    <string name="connected_google_fit">已綁定</string>
+    <string name="disconnected_google_fit">未綁定</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
 </resources>
