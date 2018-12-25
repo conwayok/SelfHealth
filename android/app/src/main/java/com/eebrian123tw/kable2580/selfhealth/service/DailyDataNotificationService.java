@@ -308,7 +308,7 @@ public class DailyDataNotificationService extends Service {
         .setAutoCancel(false)
         .setOnlyAlertOnce(true)
         .setCustomContentView(remoteViews)
-        .setSmallIcon(R.drawable.ic_launcher_background)
+        .setSmallIcon(R.drawable.care)
         .setContentIntent(resultPendingIntent)
         .setCustomBigContentView(remoteViews)
         .setOngoing(true);
