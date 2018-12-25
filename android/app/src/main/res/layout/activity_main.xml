@@ -175,7 +175,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_settings" />
+            app:srcCompat="@drawable/settings_icon" />
 
         <ImageButton
             android:id="@+id/share_button"
@@ -186,7 +186,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_share" />
+            app:srcCompat="@drawable/share_icon" />
 
         <ImageButton
             android:id="@+id/export_import_button"

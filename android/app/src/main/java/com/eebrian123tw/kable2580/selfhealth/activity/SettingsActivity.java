@@ -375,7 +375,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
           settings.isShowNotification() ? R.string.show_notification : R.string.hide_notification);
 
       showNotificationSwitch.setTextColor(
-          showNotificationSwitch.isChecked() ? Color.BLACK : Color.GRAY);
+          showNotificationSwitch.isChecked() ? Color.WHITE : Color.GRAY);
       dailyStepsGoal.setText(Integer.toString(settings.getDailyStepsGoal()));
       dailySleepGoal.setText(Double.toString(settings.getDailySleepHoursGoal()));
       dailyPhoneUseGoal.setText(Double.toString(settings.getDailyPhoneUseHoursGoal()));
@@ -387,7 +387,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
               ? R.string.connected_google_fit
               : R.string.disconnected_google_fit);
       connectGoogleFitSwitch.setTextColor(
-          connectGoogleFitSwitch.isChecked() ? Color.BLACK : Color.GRAY);
+          connectGoogleFitSwitch.isChecked() ? Color.WHITE : Color.GRAY);
 
       heightTextView.setText(Double.toString(settings.getHeight()));
       weightTextView.setText(Double.toString(settings.getWeight()));
