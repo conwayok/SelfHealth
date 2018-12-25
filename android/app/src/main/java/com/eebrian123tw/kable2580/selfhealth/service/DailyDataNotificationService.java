@@ -17,13 +17,13 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.eebrian123tw.kable2580.selfhealth.R;
-import com.eebrian123tw.kable2580.selfhealth.receiver.UserPresentReceiver;
 import com.eebrian123tw.kable2580.selfhealth.activity.MainActivity;
 import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitHistory;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitOauth;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitRecording;
+import com.eebrian123tw.kable2580.selfhealth.receiver.UserPresentReceiver;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.google.android.gms.fitness.data.DataPoint;

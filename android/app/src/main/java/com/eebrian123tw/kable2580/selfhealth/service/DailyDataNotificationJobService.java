@@ -11,8 +11,8 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-import com.eebrian123tw.kable2580.selfhealth.activity.MainActivity;
 import com.eebrian123tw.kable2580.selfhealth.R;
+import com.eebrian123tw.kable2580.selfhealth.activity.MainActivity;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDate;

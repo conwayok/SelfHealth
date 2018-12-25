@@ -19,7 +19,6 @@ import com.eebrian123tw.kable2580.selfhealth.service.entity.DailyDataModel;
 
 import org.threeten.bp.LocalDate;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 

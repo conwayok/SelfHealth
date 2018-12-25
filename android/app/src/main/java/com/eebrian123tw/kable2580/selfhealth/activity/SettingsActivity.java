@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -24,11 +23,8 @@ import com.eebrian123tw.kable2580.selfhealth.dao.HealthDataDao;
 import com.eebrian123tw.kable2580.selfhealth.dao.SettingsDao;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitHistory;
 import com.eebrian123tw.kable2580.selfhealth.googleFit.GoogleFitOauth;
-import com.eebrian123tw.kable2580.selfhealth.service.DailyDataNotificationService;
 import com.eebrian123tw.kable2580.selfhealth.service.entity.SettingsModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 

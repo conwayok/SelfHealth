@@ -1,6 +1,5 @@
 package com.eebrian123tw.kable2580.selfhealth.googleFit;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
