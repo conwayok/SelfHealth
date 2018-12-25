@@ -60,6 +60,8 @@ public class ChartActivity extends AppCompatActivity {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         lineChart.getXAxis().setDrawGridLines(false);
         lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE);
         lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.setNoDataText("No Data");

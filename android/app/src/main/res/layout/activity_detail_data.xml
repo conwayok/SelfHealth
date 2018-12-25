@@ -15,7 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardBackgroundColor="@color/colorCardView"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:contentPadding="10dp"
@@ -25,7 +24,6 @@
             android:id="@+id/summary_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorCardView"
             android:orientation="horizontal"
             android:transitionName="summary_linearLayout"
             tools:layout_editor_absoluteX="312dp"
@@ -36,7 +34,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorCardView"
                 android:text="@string/total"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -46,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorCardView"
                 android:text="@string/average"
                 android:textAlignment="center"
                 android:textSize="18sp" />
