@@ -73,7 +73,7 @@ public class ChartActivity extends AppCompatActivity {
     lineChart.getAxisLeft().setDrawGridLines(false);
     lineChart.getAxisRight().setEnabled(false);
     lineChart.setNoDataText("No Data");
-    lineChart.setNoDataTextColor(Color.BLACK);
+    lineChart.setNoDataTextColor(Color.WHITE);
     lineChart.animateX(300);
 
     final HealthDataCalculator healthDataCalculator =
